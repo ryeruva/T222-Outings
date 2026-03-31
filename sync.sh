@@ -10,7 +10,7 @@ DOWNLOADS="$HOME/Downloads"
 
 FILES=(
   "Spring_Prep_Hike_Menu.html"
-  "Spring_Prep_Hike_Menu_Allergy_Scout.html"
+  "Spring_Prep_Hike_Menu.html"
   "Spring_Prep_Hike_Expenses.html"
   "Spring_Prep_Hike_Meal_Plan.xlsx"
   "Spring_Prep_Hike_Crew_Menu.md"

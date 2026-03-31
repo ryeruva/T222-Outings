@@ -56,7 +56,7 @@
 
 | Item | Per person | Scout can qty | Adult can qty | Notes |
 |---|---|---|---|---|
-| Kind PB Dark Choc Mini bar | 2 bars (0.7 oz each) | 6 bars | 8 bars | ⚠ nuts |
+| Kind PB Dark Choc Healthy Grains bar | 1 bar (1.4 oz) | 6 bars | 8 bars | ⚠ nuts |
 | Krave Sea Salt Beef Jerky | 1 bag (0.625 oz) | 3 bags | 4 bags | |
 | Gatorade G Zero powder | 1 packet | 3 pkts | 4 pkts | |
 | Dried Mango Slices | 1 oz pack | 3 packs | 4 packs | nut-free ✓ |
@@ -96,7 +96,7 @@
 |---|---|---|---|---|
 | MET-Rx Big100 – Super Cookie Crunch | 1 bar (3.52 oz) | 3 | 4 | eat cold · ⚠ nuts |
 | Swiss Miss Hot Cocoa | 1 packet | 3 pkts | — | scouts only |
-| Starbucks VIA Colombia Coffee | 1 stick | — | 4 sticks | adults only · 1/morning |
+| Starbucks Instant Colombia Coffee | 1 stick | — | 4 sticks | adults only · 1/morning |
 
 ### Snacks *(bear can — distribute at breakfast, carry all day)*
 
@@ -107,8 +107,6 @@
 | Gatorade G Zero powder | 2 packets | 6 pkts | 8 pkts | 2 per person — hardest day |
 | Banana Chips | 1 oz pack | 3 | 4 | nut-free ✓ |
 | Nature's Garden Trail Mix | 1 bag (1.2 oz) | 3 | 4 | ⚠ check nut label |
-| Clif Builder's bar | 1 bar (2.4 oz) | — | 2 | **adults only** · ⚠ nuts |
-| Justin's PB Squeeze | 1 pack (1.15 oz) | — | 2 | **adults only** · ⚠ nuts |
 
 ### Lunch *(no cook)*
 
@@ -146,7 +144,7 @@
 |---|---|---|---|---|
 | ProBar Meal Oatmeal Choc Chip | 1 bar (3 oz) | 3 | 4 | eat cold |
 | Swiss Miss Hot Cocoa | 1 packet | 3 pkts | — | scouts only |
-| Starbucks VIA Colombia Coffee | 1 stick | — | 4 sticks | adults only · 1/morning |
+| Starbucks Instant Colombia Coffee | 1 stick | — | 4 sticks | adults only · 1/morning |
 
 ### Snacks *(bear can — last pull)*
 
@@ -155,6 +153,7 @@
 | Clif Bar | 1 bar (2.4 oz) | 3 | 4 | ⚠ nuts |
 | Krave Sea Salt Beef Jerky | 1 bag (0.625 oz) | 3 | 4 | |
 | Gatorade G Zero powder | 1 packet | 3 pkts | 4 pkts | |
+| Nature's Garden Trail Mix | 1 bag (1.2 oz) | 3 | 4 | ⚠ check nut label |
 | Peak Refuel Brownie Bites | ½ pouch per person | 2 pouches | 2 pouches | buddy pairs share |
 
 ### Lunch *(no cook)*
@@ -184,7 +183,7 @@
 
 | Original item | Swap item | Meals affected |
 |---|---|---|
-| Kind PB Dark Choc Mini bar | 88 Acres Seed + Oat Bar | SAT snacks |
+| Kind PB Dark Choc Healthy Grains bar | 88 Acres Seed + Oat Bar | SAT snacks |
 | Kind Dark Choc Sea Salt bar | 88 Acres Seed + Oat Bar | SUN snacks |
 | MET-Rx Big100 bar | GoMacro Heartwarming Retreat | SUN breakfast |
 | ProBar Meal bar | GoMacro Heartwarming Retreat | MON breakfast |
