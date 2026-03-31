@@ -60,6 +60,7 @@
 | Krave Sea Salt Beef Jerky | 1 bag (0.625 oz) | 3 bags | 4 bags | |
 | Gatorade G Zero powder | 1 packet | 3 pkts | 4 pkts | |
 | Dried Mango Slices | 1 oz pack | 3 packs | 4 packs | nut-free ✓ |
+| Strawberry Yoggies | 1 bag (0.7 oz) | 3 bags | 4 bags | nut-free ✓ |
 
 ### Lunch *(🎒 backpack — trail charcuterie, no cook)*
 
