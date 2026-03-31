@@ -60,7 +60,6 @@
 | Krave Sea Salt Beef Jerky | 1 bag (0.625 oz) | 3 bags | 4 bags | |
 | Gatorade G Zero powder | 1 packet | 3 pkts | 4 pkts | |
 | Dried Mango Slices | 1 oz pack | 3 packs | 4 packs | nut-free ✓ |
-| Strawberry Yoggies | 1 bag (0.7 oz) | 3 bags | 4 bags | nut-free ✓ |
 
 ### Lunch *(🎒 backpack — trail charcuterie, no cook)*
 
@@ -112,7 +111,7 @@
 
 | Item | Per person | Scout can qty | Adult can qty | Notes |
 |---|---|---|---|---|
-| StarKist Beef Creations Taco Style | 1 pouch (2.6 oz) | 3 | 4 | |
+| StarKist Less Sodium White Chicken | 1 pouch (2.6 oz) | 3 | 4 | |
 | Guerrero 8" Flour Tortillas | 2 tortillas | 6 | 8 | |
 | Tillamook Cheddar | 1 packet (0.75 oz) | 3 pkts | 4 pkts | |
 | Justin's Classic PB Squeeze | 1 pack (1.15 oz) | 3 | 4 | ⚠ nuts |
