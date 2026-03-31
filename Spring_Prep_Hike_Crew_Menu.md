@@ -5,24 +5,20 @@
 
 | Bear Can | People | Type |
 |---|---|---|
-| Scout Can 1 | 3 scouts | BV500 |
-| Scout Can 2 | 3 scouts | BV500 |
-| Scout Can 3 | 3 scouts | BV500 |
-| Scout Can 4 | 3 scouts | BV500 |
-| Adult Can 1 | 4 adults | BV500 |
-| Adult Can 2 | 4 adults | BV500 |
+| Scout Can 1–4 | 3 scouts each | BV500 |
+| Adult Can 1–2 | 4 adults each | BV500 |
 
-> Each bear can group cooks, packs, and carries for itself only. Quantities shown are per can.
+> Each bear can group cooks, packs, and carries for itself only. Quantities shown are **per can**.
 
 ---
 
 ## Trip Schedule
 
-| Day | Date | Distance | Gain | Camp |
+| Day | Date | Distance | Gain/Loss | Camp |
 |---|---|---|---|---|
-| Day 1 | Sat Apr 4 | 10.9 mi | +3,474 ft | Camp 1 |
-| Day 2 | Sun Apr 5 | 5.8 mi | +2,316 ft | Camp 2 |
-| Day 3 | Mon Apr 6 | 9.7 mi | −4,249 ft net | Exit |
+| Day 1 | Sat Apr 4 | 10.9 mi | +3,474 ft / −2,272 ft | Star's Rest Camp |
+| Day 2 | Sun Apr 5 | 5.8 mi | +2,316 ft / −410 ft | Maggie's Half Acre |
+| Day 3 | Mon Apr 6 | 9.7 mi | +1,514 ft / −4,249 ft | Exit: Lake Del Valle |
 
 ---
 
@@ -30,12 +26,12 @@
 
 | Day | Scouts | Adults |
 |---|---|---|
-| Sat Apr 4 | ~2,090 kcal | ~2,090 kcal |
-| Sun Apr 5 | ~2,980 kcal | ~3,470 kcal ✅ |
-| Mon Apr 6 | ~1,790 kcal | ~1,790 kcal |
-| **Trip total** | **~6,860 kcal** | **~7,350 kcal** |
+| Sat Apr 4 | ~1,810 kcal | ~1,850 kcal |
+| Sun Apr 5 | ~2,935 kcal | ~3,395 kcal |
+| Mon Apr 6 | ~1,525 kcal | ~1,505 kcal |
+| **Trip total** | **~6,270 kcal** | **~6,750 kcal** |
 
-> Adults reach ~3,470 kcal on Sunday via a Clif Builder's bar and Justin's PB squeeze packed in adult can snack bag.
+> Adults reach ~3,395 kcal on Sunday via Clif Builder's bar + Justin's PB squeeze in adult can.
 
 ---
 
@@ -54,90 +50,91 @@
 ## Saturday, April 4 — Day 1
 
 > No breakfast packed — everyone eats before driving to the trailhead.
+> 🎒 SAT snacks and lunch carried in individual backpacks. Only dinner + dessert in bear can.
 
-### Snacks *(hip-belt pocket)*
+### Snacks *(🎒 backpack — hip-belt pocket, NOT in bear can)*
 
-| Item | Adult can qty | Scout can qty | Notes |
-|---|---|---|---|
-| Kind PB Dark Choc Bar | 4 | 3 | Contains nuts |
-| Krave Sea Salt Beef Jerky | 4 | 3 | |
-| Gatorade Powder Pack | 4 | 3 | |
-| Trader Joe's Dried Mango Slices | 4 | 3 | 1 oz each · nut-free ✓ |
+| Item | Per person | Scout can qty | Adult can qty | Notes |
+|---|---|---|---|---|
+| Kind PB Dark Choc Mini bar | 2 bars (0.7 oz each) | 6 bars | 8 bars | ⚠ nuts |
+| Krave Sea Salt Beef Jerky | 1 bag (0.625 oz) | 3 bags | 4 bags | |
+| Gatorade G Zero powder | 1 packet | 3 pkts | 4 pkts | |
+| Dried Mango Slices | 1 oz pack | 3 packs | 4 packs | nut-free ✓ |
+| Strawberry Yoggies | 1 bag (0.7 oz) | 3 bags | 4 bags | nut-free ✓ |
 
-### Lunch *(no cook — trail charcuterie)*
+### Lunch *(🎒 backpack — trail charcuterie, no cook)*
 
-| Item | Adult can qty | Scout can qty | Notes |
-|---|---|---|---|
-| Columbus Hard Salami (sliced packet) | 4 | 3 | |
-| Wasa Crisp'n Light Crackerbread | 4 | 3 | |
-| Tillamook Cheddar Cheese Packets | 4 | 3 | |
+| Item | Per person | Scout can qty | Adult can qty | Notes |
+|---|---|---|---|---|
+| Columbus Italian Dry Salame | 2 oz pre-sliced | ~6 oz | ~8 oz | slice & bag on Apr 3 |
+| Tillamook Cheddar Snacking Cheese | 2 packets (0.75 oz each) | 6 pkts | 8 pkts | |
+| Chicken in a Biskit crackers | 1 oz (~12 crackers) | 3 oz | 4 oz | |
 
-### Dinner *(hot)*
+### Dinner *(↑ in bear can — hot)*
 
-| Item | Adult can qty | Scout can qty | Notes |
-|---|---|---|---|
-| Peak Refuel – Beef Pasta Marinara | 3 pouches | 2 pouches | 1.5 svgs/pouch |
-| Flour Tortillas | 8 | 6 | wraps + side |
-| Tillamook Cheddar Cheese Packets | 4 | 3 | dinner side |
+| Item | Per person | Scout can qty | Adult can qty | Notes |
+|---|---|---|---|---|
+| Peak Refuel Beef Pasta Marinara | ⅔ pouch (scout) / ¾ pouch (adult) | 2 pouches | 3 pouches | add 2 cups boiling water |
+| Guerrero 8" Flour Tortillas | 2 tortillas | 6 | 8 | |
+| Tillamook Cheddar | 1 packet (0.75 oz) | 3 pkts | 4 pkts | |
 
-### Dessert *(hot)*
+### Dessert *(↑ in bear can — cold rehydration)*
 
-| Item | Adult can qty | Scout can qty | Notes |
-|---|---|---|---|
-| Backpacker's Pantry Crème Brûlée | 2 pouches | 2 pouches | buddy pairs share 1 pouch |
+| Item | Per person | Scout can qty | Adult can qty | Notes |
+|---|---|---|---|---|
+| BP Crème Brûlée | ½ pouch | 2 pouches | 2 pouches | buddy pairs share 1 pouch |
 
-> ⚠ Check BP Crème Brûlée label before trip — some batches contain cashews. See allergy section.
+> ⚠ Check BP Crème Brûlée label — some batches contain cashews. Allergy scout gets Honey Stinger Gold Waffle.
 
 ---
 
-## Sunday, April 5 — Day 2 *(Full Active Day)*
+## Sunday, April 5 — Day 2 *(Full Active Day — Hardest Climb)*
 
-### Breakfast *(grab & go)*
+### Breakfast *(grab & go — boil water for drinks only)*
 
-| Item | Adult can qty | Scout can qty | Notes |
-|---|---|---|---|
-| MET-Rx Big100 – Super Cookie Crunch | 4 | 3 | 420 kcal · 32g protein |
-| Hot drink | Adults: bring own | Scouts: Swiss Miss ×2 | boil water only |
+| Item | Per person | Scout can qty | Adult can qty | Notes |
+|---|---|---|---|---|
+| MET-Rx Big100 – Super Cookie Crunch | 1 bar (3.52 oz) | 3 | 4 | eat cold · ⚠ nuts |
+| Swiss Miss Hot Cocoa | 1 packet | 3 pkts | — | scouts only |
+| Starbucks VIA Colombia Coffee | 1 stick | — | 4 sticks | adults only · 1/morning |
 
-### Snacks *(hip-belt pocket)*
+### Snacks *(bear can — distribute at breakfast, carry all day)*
 
-| Item | Adult can qty | Scout can qty | Notes |
-|---|---|---|---|
-| Kind Dark Choc Nuts & Sea Salt Bar | 4 | 3 | Contains nuts |
-| Krave Sea Salt Beef Jerky | 4 | 3 | |
-| Gatorade Powder Pack | 8 | 6 | ×2 — hardest climb day |
-| Banana Chips (1 oz) | 4 | 3 | nut-free ✓ |
-
-**Adult cans only — supplement:**
-
-| Item | Adult can qty | Notes |
-|---|---|---|
-| Clif Builder's – Crunchy PB | 2 | +490 kcal for adults |
-| Justin's Classic PB Squeeze Pack | 2 | |
+| Item | Per person | Scout can qty | Adult can qty | Notes |
+|---|---|---|---|---|
+| Kind Dark Choc Sea Salt bar | 1 bar (1.4 oz) | 3 | 4 | ⚠ nuts |
+| Krave Sea Salt Beef Jerky | 1 bag (0.625 oz) | 3 | 4 | |
+| Gatorade G Zero powder | 2 packets | 6 pkts | 8 pkts | 2 per person — hardest day |
+| Banana Chips | 1 oz pack | 3 | 4 | nut-free ✓ |
+| Nature's Garden Trail Mix | 1 bag (1.2 oz) | 3 | 4 | ⚠ check nut label |
+| Clif Builder's bar | 1 bar (2.4 oz) | — | 2 | **adults only** · ⚠ nuts |
+| Justin's PB Squeeze | 1 pack (1.15 oz) | — | 2 | **adults only** · ⚠ nuts |
 
 ### Lunch *(no cook)*
 
-| Item | Adult can qty | Scout can qty | Notes |
-|---|---|---|---|
-| Chicken of the Sea Shredded Chicken | 4 | 3 | |
-| Flour Tortillas | 8 | 6 | wraps |
-| Tillamook Cheddar Cheese Packets | 4 | 3 | |
-| Clif Bar – Crunchy PB | 4 | 3 | Contains nuts |
-| Justin's Classic PB Squeeze Pack | 4 | 3 | Contains nuts |
+| Item | Per person | Scout can qty | Adult can qty | Notes |
+|---|---|---|---|---|
+| StarKist Beef Creations Taco Style | 1 pouch (2.6 oz) | 3 | 4 | |
+| Guerrero 8" Flour Tortillas | 2 tortillas | 6 | 8 | |
+| Tillamook Cheddar | 1 packet (0.75 oz) | 3 pkts | 4 pkts | |
+| Justin's Classic PB Squeeze | 1 pack (1.15 oz) | 3 | 4 | ⚠ nuts |
+| Clif Bar | 1 bar (2.4 oz) | 3 | 4 | ⚠ nuts |
 
 ### Dinner *(hot)*
 
-| Item | Adult can qty | Scout can qty | Notes |
-|---|---|---|---|
-| Peak Refuel – Beef Stroganoff | 3 pouches | 2 pouches | 1.5 svgs/pouch |
-| Flour Tortillas | 8 | 6 | dinner side |
-| Idahoan Mashed Potatoes | 4 | 3 | hot side dish |
+| Item | Per person | Scout can qty | Adult can qty | Notes |
+|---|---|---|---|---|
+| Peak Refuel Beef Stroganoff | ⅔ pouch (scout) / ¾ pouch (adult) | 2 pouches | 3 pouches | hot |
+| Guerrero 8" Flour Tortillas | 2 tortillas | 6 | 8 | |
+| Idahoan Mashed Potatoes | ½ cup dry mix | 3 svgs | 4 svgs | hot side |
 
 ### Dessert *(no cook)*
 
-| Item | Adult can qty | Scout can qty | Notes |
-|---|---|---|---|
-| Justin's Dark Choc PB Cups | 4 | 3 | 1 cup per person |
+| Item | Per person | Scout can qty | Adult can qty | Notes |
+|---|---|---|---|---|
+| Justin's Dark Choc PB Cups | 3 cups (scout) / 4 cups (adult) | 3 packs | 4 packs | ⚠ peanut butter |
+
+> Allergy scout: Honey Stinger Gold Waffle instead of PB Cups.
 
 ---
 
@@ -145,90 +142,68 @@
 
 ### Breakfast *(grab & go)*
 
-| Item | Adult can qty | Scout can qty | Notes |
-|---|---|---|---|
-| ProBar Meal – Oatmeal Chocolate Chip | 4 | 3 | 410 kcal |
-| Hot drink | Adults: bring own | Scouts: Swiss Miss ×2 | boil water only |
+| Item | Per person | Scout can qty | Adult can qty | Notes |
+|---|---|---|---|---|
+| ProBar Meal Oatmeal Choc Chip | 1 bar (3 oz) | 3 | 4 | eat cold |
+| Swiss Miss Hot Cocoa | 1 packet | 3 pkts | — | scouts only |
+| Starbucks VIA Colombia Coffee | 1 stick | — | 4 sticks | adults only · 1/morning |
 
-### Snacks *(hip-belt pocket)*
+### Snacks *(bear can — last pull)*
 
-| Item | Adult can qty | Scout can qty | Notes |
-|---|---|---|---|
-| Clif Bar – Crunchy PB | 4 | 3 | Contains nuts |
-| Krave Sea Salt Beef Jerky | 4 | 3 | |
-| Gatorade Powder Pack | 4 | 3 | |
-| Peak Refuel Fudge Brownie Bites | 2 pouches | 2 pouches | whole can shares · nut-free ✓ |
+| Item | Per person | Scout can qty | Adult can qty | Notes |
+|---|---|---|---|---|
+| Clif Bar | 1 bar (2.4 oz) | 3 | 4 | ⚠ nuts |
+| Krave Sea Salt Beef Jerky | 1 bag (0.625 oz) | 3 | 4 | |
+| Gatorade G Zero powder | 1 packet | 3 pkts | 4 pkts | |
+| Peak Refuel Brownie Bites | ½ pouch per person | 2 pouches | 2 pouches | buddy pairs share |
 
 ### Lunch *(no cook)*
 
-| Item | Adult can qty | Scout can qty | Notes |
-|---|---|---|---|
-| Flour Tortillas | 8 | 6 | wraps |
-| Justin's Classic PB Squeeze Pack | 4 | 3 | ultralight exit day |
+| Item | Per person | Scout can qty | Adult can qty | Notes |
+|---|---|---|---|---|
+| Guerrero 8" Flour Tortillas | 2 tortillas | 6 | 8 | |
+| Justin's Classic PB Squeeze | 1.5 packs (scout) / 2 packs (adult) | 3 | 4 | ⚠ nuts |
 
 ---
 
-## Bear Can Packing Order
+## Tortilla Count Check
 
-Pack in this order so Saturday is always on top:
+| Meal | Per can (S) | Per can (A) | Total S (4 cans) | Total A (2 cans) | Grand total |
+|---|---|---|---|---|---|
+| SAT Dinner | 6 | 8 | 24 | 16 | 40 |
+| SUN Lunch | 6 | 8 | 24 | 16 | 40 |
+| SUN Dinner | 6 | 8 | 24 | 16 | 40 |
+| MON Lunch | 6 | 8 | 24 | 16 | 40 |
+| **Total** | **24** | **32** | **96** | **64** | **160** |
 
-| Step | Action |
-|---|---|
-| Step 1 ↓ | Put **MON big bag** in first — goes to the bottom |
-| Step 2 ↓ | Put **SUN big bag** in next — sits in the middle |
-| Step 3 ↑ | Put **SAT big bag** in last — sits on top, first thing you grab |
-
-**Zip-lock bag sizes:**
-- 🗂 **Gallon (big)** — one per day, labeled SAT / SUN / MON
-- 📦 **Quart (medium)** — one per meal inside each day bag
-- 🔹 **Sandwich (small)** — one per person for individual items
+> Costco order: 4 packs × 40ct = **160 tortillas ✓** exactly right.
 
 ---
 
-## Nut Allergy Accommodation (1 Scout)
+## Nut Allergy Scout — Swap Summary
 
-One scout carries a personal labeled swap bag. Main plan is **unchanged** for all 19 others.
-
-| Meal | Main item (contains nuts) | Allergy scout swap |
+| Original item | Swap item | Meals affected |
 |---|---|---|
-| Sat snacks | Kind PB Dark Choc Bar | 88 Acres Seed + Oat Bar |
-| Sat dessert | BP Crème Brûlée (check label) | Honey Stinger Gold Waffle (if cashews confirmed) |
-| Sun breakfast | MET-Rx Big100 | GoMacro Heartwarming Retreat Oatmeal Choc Chip |
-| Sun snacks | Kind Dark Choc Sea Salt Bar | 88 Acres Seed + Oat Bar |
-| Sun lunch | Clif Bar Crunchy PB | Clif Bar Chocolate Chip |
-| Sun lunch | Justin's PB Squeeze | Once Again Sunflower Butter Squeeze |
-| Sun dessert | Justin's Dark Choc PB Cups | Honey Stinger Gold Waffle |
-| Mon breakfast | ProBar Meal | GoMacro Heartwarming Retreat Oatmeal Choc Chip |
-| Mon snacks | Clif Bar Crunchy PB | Clif Bar Chocolate Chip |
-| Mon lunch | Justin's PB Squeeze | Once Again Sunflower Butter Squeeze |
+| Kind PB Dark Choc Mini bar | 88 Acres Seed + Oat Bar | SAT snacks |
+| Kind Dark Choc Sea Salt bar | 88 Acres Seed + Oat Bar | SUN snacks |
+| MET-Rx Big100 bar | GoMacro Heartwarming Retreat | SUN breakfast |
+| ProBar Meal bar | GoMacro Heartwarming Retreat | MON breakfast |
+| Clif Bar (all) | Clif Chocolate Chip (nut-free) | SUN/MON snacks |
+| Justin's PB Squeeze (all) | Once Again Sunflower Butter | SUN/MON lunch |
+| Justin's Dark Choc PB Cups | Honey Stinger Gold Waffle | SUN dessert |
+| BP Crème Brûlée | Honey Stinger Gold Waffle (if cashews present) | SAT dessert |
+| Clif Builder's bar | N/A — adult only, scout doesn't receive | — |
 
-**Safe for allergy scout (no swap needed):** all dinners, salami lunch, Wasa, Tillamook, chicken pouches, Krave jerky, Gatorade, Dried Mango, Banana Chips, Brownie Bites, Swiss Miss.
-
----
-
-## Actual Expenses (as of March 26, 2026)
-
-| Store | Order | Date | Total |
-|---|---|---|---|
-| Peak Refuel | #A396317434 | Mar 21 | $519.60 |
-| Amazon | #113-3546030-5420230 | Mar 21 | $383.23 |
-| Sports Basement | #1436395 | Mar 21 | $163.80 |
-| Walmart | #2000143-52530573 | Mar 21 | $84.56 |
-| Sprouts / Instacart | #032519... | Mar 25 | $33.21 |
-| **Total** | | | **$1,184.40** |
-
-- **Per person:** ~$59.22
-- **Budget:** $1,235.00
-- **Under budget:** $50.60
-- **Total discounts saved:** $65.74
+> ⚠ Check Nature's Garden Trail Mix label — swap if nuts present.
+> All swap items carried in a separate labeled personal bag.
 
 ---
 
-## Adults: Hot Drink Note
+## Packing Day Notes (Apr 3)
 
-Adults are asked to **bring their own coffee or tea supplies** for the two morning hot drinks (Sunday and Monday). No coffee is packed in the adult bear cans. Scouts use Swiss Miss Hot Chocolate (2 packets per morning, packed in scout cans).
+- Pre-slice Columbus Dry Salame into 2 oz per-person portions. Seal in individual labeled sandwich bags.
+- Pre-sort all snack items per-person into labeled zip bags (especially for allergy scout).
+- Each bear can group packs MON (bottom) → SUN (middle) → SAT (top). Vacuum seal each day bag.
+- Confirm BP Crème Brûlée label for cashews before packing.
+- Adult VIA coffee (4 sticks per can) goes in SAT layer of adult cans for SUN + MON mornings.
 
----
-
-*Spring Prep Hike · April 4–6, 2026 · 20 participants · 6 bear cans*
-*Last updated: March 26, 2026*
