@@ -15,7 +15,6 @@ FILES=(
   "Spring_Prep_Hike_Meal_Plan.xlsx"
   "Spring_Prep_Hike_Crew_Menu.md"
   "Spring_Prep_Hike_Master_Prompt.md"
-  "Spring_Prep_Hike_Bear_Can_Packing.html"
   "Point_Reyes_Expenses.html"
   "Budget_Tracker.html"
   "Spring_Prep_Hike_Itinerary.html"
