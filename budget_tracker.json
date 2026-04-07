@@ -1,9 +1,9 @@
 {
   "_comment": "Master budget tracker. Each prep hike gets 17% of total collected (51% total), final hike gets remaining 49%.",
   "meta": {
-    "participants": 26,
+    "participants": 23,
     "perPersonCollected": 250,
-    "totalCollected": 6500,
+    "totalCollected": 5750,
     "asOf": "April 2, 2026",
     "budgetYear": 2026
   },
