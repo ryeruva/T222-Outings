@@ -1,13 +1,13 @@
 {
   "summary": {
-    "totalSpent": 1412.51,
-    "perPerson": 70.63,
+    "totalSpent": 1541.10,
+    "perPerson": 77.06,
     "participants": 20,
-    "orders": 10,
+    "orders": 11,
     "estimatedBudget": 1235.00,
-    "overBudget": 177.51,
-    "overBudgetPct": 14.4,
-    "discountsSaved": 94.73
+    "overBudget": 306.10,
+    "overBudgetPct": 24.8,
+    "discountsSaved": 98.81
   },
   "grandTotalBreakdown": [
     { "label": "Peak Refuel (meals & desserts)", "amount": 519.60 },
@@ -17,17 +17,19 @@
     { "label": "Walmart (staples & drinks)", "amount": 84.56 },
     { "label": "ReserveAmerica (campsites)", "amount": 38.00 },
     { "label": "Instacart / Sprouts (allergy scout)", "amount": 33.21 },
-    { "label": "REI (cooking gear)", "amount": 22.50 }
+    { "label": "REI (cooking gear)", "amount": 22.50 },
+    { "label": "Menlo Park Chevron (gas — paid by Kerri)", "amount": 128.59 }
   ],
   "comparison": [
     { "label": "Estimated budget", "value": "$1,235.00", "class": "neutral" },
-    { "label": "Actual total spent", "value": "$1,412.51", "class": "neutral" },
-    { "label": "Total discounts & savings", "value": "−$94.73", "class": "under" },
+    { "label": "Actual total spent", "value": "$1,541.10", "class": "neutral" },
+    { "label": "Total discounts & savings", "value": "−$98.81", "class": "under" },
     { "label": "Allergy scout items (Sprouts)", "value": "$26.48 food + $6.73 delivery", "class": "neutral" },
     { "label": "REI cooking gear (reimbursable)", "value": "$22.50 — paid by Diego", "class": "neutral" },
     { "label": "Campsite fees (ReserveAmerica)", "value": "$38.00 — paid by Diego", "class": "neutral" },
-    { "label": "Under / over budget", "value": "$177.51 over", "class": "over", "bold": true },
-    { "label": "Cost per person (20 ppl)", "value": "$70.63", "class": "neutral", "bold": true }
+    { "label": "Gas — Menlo Park Chevron", "value": "$128.59 — paid by Kerri", "class": "neutral" },
+    { "label": "Under / over budget", "value": "$306.10 over", "class": "over", "bold": true },
+    { "label": "Cost per person (20 ppl)", "value": "$77.06", "class": "neutral", "bold": true }
   ],
   "orders": [
     {
@@ -243,6 +245,26 @@
         { "label": "Use fee", "value": "$15.00", "class": "subtotal" },
         { "label": "Transaction fee", "value": "$8.00", "class": "fees" },
         { "label": "Order Total", "value": "$23.00", "class": "grand" }
+      ]
+    },
+    {
+      "id": "chevron-gas",
+      "store": "Menlo Park Chevron",
+      "storeDetail": "1200 El Camino Real, Menlo Park, CA",
+      "headerClass": "chevron",
+      "date": "April 6, 2026",
+      "orderNum": "Invoice E/4787775 · Auth 111799 · Pump #4",
+      "payment": "Kerri — Visa Debit ····2517",
+      "total": 128.59,
+      "note": "Safeway member discount of $0.200/gal applied before fueling (saved ~$4.08). List price was ~$6.499/gal.",
+      "unitHeader": "Price/Gal",
+      "totalHeader": "Amount",
+      "items": [
+        { "name": "Unleaded Plus — 20.415 gal", "category": "Gas", "badge": "badge-fuel", "qty": "20.415 gal", "unit": 6.299, "total": 128.59 }
+      ],
+      "footer": [
+        { "label": "Safeway discount (−$0.200/gal)", "value": "−$4.08", "class": "discount" },
+        { "label": "Fuel Total", "value": "$128.59", "class": "grand" }
       ]
     },
     {
