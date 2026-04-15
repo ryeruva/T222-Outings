@@ -584,15 +584,63 @@
   </div>
 
   <script>
-    function fmt(n) {
-      return '$' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    // ─────────────────────────────────────────────────────────────────────────
+    // GOOGLE SHEETS CONFIG
+    // After uploading the CSV files to Google Sheets and publishing each tab,
+    // paste the "Publish to web" CSV URL for each tab below.
+    //
+    // How to get each URL:
+    //   1. Open the spreadsheet → File → Share → Publish to web
+    //   2. Select the tab name, choose "Comma-separated values (.csv)", click Publish
+    //   3. Copy the URL and paste it in the matching slot below
+    // ─────────────────────────────────────────────────────────────────────────
+    const SHEETS = {
+      summary:    'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ0aUkEqqx2KFwH_28uXlzSTcnddjFZmQm6x2KO1PdxZMf_o3tciNtj3TuOeob7nVnxSA_wt_eal1oY/pub?gid=1279979925&single=true&output=csv',
+      orders:     'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ0aUkEqqx2KFwH_28uXlzSTcnddjFZmQm6x2KO1PdxZMf_o3tciNtj3TuOeob7nVnxSA_wt_eal1oY/pub?gid=115109068&single=true&output=csv',
+      items:      'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ0aUkEqqx2KFwH_28uXlzSTcnddjFZmQm6x2KO1PdxZMf_o3tciNtj3TuOeob7nVnxSA_wt_eal1oY/pub?gid=1201278118&single=true&output=csv',
+      footer:     'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ0aUkEqqx2KFwH_28uXlzSTcnddjFZmQm6x2KO1PdxZMf_o3tciNtj3TuOeob7nVnxSA_wt_eal1oY/pub?gid=119295505&single=true&output=csv',
+      breakdown:  'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ0aUkEqqx2KFwH_28uXlzSTcnddjFZmQm6x2KO1PdxZMf_o3tciNtj3TuOeob7nVnxSA_wt_eal1oY/pub?gid=153888869&single=true&output=csv',
+      comparison: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ0aUkEqqx2KFwH_28uXlzSTcnddjFZmQm6x2KO1PdxZMf_o3tciNtj3TuOeob7nVnxSA_wt_eal1oY/pub?gid=880117868&single=true&output=csv',
+    };
+
+    // ── CSV parser (handles quoted fields with commas / newlines) ────────────
+    function parseCSV(text) {
+      const rows = [];
+      let row = [], field = '', inQ = false;
+      for (let i = 0; i < text.length; i++) {
+        const c = text[i], next = text[i + 1];
+        if (inQ) {
+          if (c === '"' && next === '"') { field += '"'; i++; }
+          else if (c === '"') { inQ = false; }
+          else { field += c; }
+        } else {
+          if (c === '"') { inQ = true; }
+          else if (c === ',') { row.push(field); field = ''; }
+          else if (c === '\r' && next === '\n') { row.push(field); rows.push(row); row = []; field = ''; i++; }
+          else if (c === '\n' || c === '\r') { row.push(field); rows.push(row); row = []; field = ''; }
+          else { field += c; }
+        }
+      }
+      if (field || row.length) { row.push(field); rows.push(row); }
+      if (!rows.length) return [];
+      const headers = rows[0];
+      return rows.slice(1).filter(r => r.some(v => v.trim())).map(r => {
+        const obj = {};
+        headers.forEach((h, i) => { obj[h.trim()] = (r[i] || '').trim(); });
+        return obj;
+      });
     }
 
+    // ── Helpers ──────────────────────────────────────────────────────────────
+    function fmt(n) {
+      return '$' + Number(n).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
     function esc(str) {
       if (!str) return '';
       return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
 
+    // ── Renderers (unchanged logic) ──────────────────────────────────────────
     function renderSummary(s) {
       document.getElementById('summary-grid').innerHTML = `
         <div class="card"><p class="card-label">Total Spent</p><p class="card-value big">${fmt(s.totalSpent)}</p><p class="card-sub">${s.orders} orders</p></div>
@@ -615,7 +663,7 @@
           ? `<span class="badge ${item.badge}">${esc(item.category)}</span>` : '';
         const nameNote = item.nameNote
           ? `&nbsp;<span class="td note">${esc(item.nameNote)}</span>` : '';
-        const unitVal = typeof item.unit === 'number' ? fmt(item.unit) : esc(item.unit);
+        const unitVal = isNaN(Number(item.unit)) ? esc(item.unit) : fmt(item.unit);
         return `<tr>
           <td class="item-name">${esc(item.name)}${nameNote}</td>
           <td>${badge}</td>
@@ -626,7 +674,7 @@
       }).join('');
 
       const footerRows = o.footer.map(f =>
-        `<div class="footer-row ${f.class}"><span>${esc(f.label)}</span><span>${f.value}</span></div>`
+        `<div class="footer-row ${f.class}"><span>${esc(f.label)}</span><span>${esc(f.value)}</span></div>`
       ).join('');
 
       const note = o.note ? `<div class="receipt-note">${esc(o.note)}</div>` : '';
@@ -651,22 +699,22 @@
       </div>`;
     }
 
-    function renderGrandTotal(b) {
-      const breakdown = b.grandTotalBreakdown.map(r =>
+    function renderGrandTotal(summary, breakdown) {
+      const rows = breakdown.map(r =>
         `<span><span>${esc(r.label)}</span><strong>${fmt(r.amount)}</strong></span>`
       ).join('');
       document.getElementById('grand-total-block').innerHTML = `
         <div>
           <p class="gt-label">Total Expenditure</p>
-          <p class="gt-value">${fmt(b.summary.totalSpent)}</p>
+          <p class="gt-value">${fmt(summary.totalSpent)}</p>
         </div>
-        <div class="gt-breakdown">${breakdown}</div>`;
+        <div class="gt-breakdown">${rows}</div>`;
     }
 
     function renderComparison(rows) {
       document.getElementById('comparison-rows').innerHTML = rows.map(r => {
         const label = r.bold ? `<strong>${esc(r.label)}</strong>` : esc(r.label);
-        const val   = r.bold ? `<strong>${r.value}</strong>` : r.value;
+        const val   = r.bold ? `<strong>${esc(r.value)}</strong>` : esc(r.value);
         return `<div class="comp-row">
           <span class="comp-label">${label}</span>
           <span class="comp-val ${r.class}">${val}</span>
@@ -674,20 +722,65 @@
       }).join('');
     }
 
-    fetch('budget.json')
-      .then(r => r.json())
-      .then(b => {
-        renderSummary(b.summary);
-        document.getElementById('receipts-container').innerHTML = b.orders.map(renderReceipt).join('');
-        renderGrandTotal(b);
-        renderComparison(b.comparison);
+    // ── Assemble data from 6 CSVs and render ─────────────────────────────────
+    function showError(msg) {
+      document.getElementById('receipts-container').innerHTML =
+        `<p style="color:#8C4A2F;padding:1.5rem;background:#FFF0EE;border-radius:6px;margin:1rem 0">⚠ ${msg}</p>`;
+    }
+
+    const configured = Object.values(SHEETS).every(u => !u.startsWith('PASTE_'));
+
+    if (!configured) {
+      showError('Google Sheets URLs not yet configured. ' +
+        'Open <code>Spring_Prep_Hike_Expenses.html</code>, find the <code>SHEETS</code> object at the top of the script, ' +
+        'and paste the published CSV URL for each tab.');
+    } else {
+      Promise.all(Object.entries(SHEETS).map(([key, url]) =>
+        fetch(url).then(r => { if (!r.ok) throw new Error(key); return r.text(); }).then(t => [key, t])
+      ))
+      .then(results => {
+        const csv = Object.fromEntries(results.map(([k, t]) => [k, parseCSV(t)]));
+
+        // Summary: key→value map
+        const summary = {};
+        csv.summary.forEach(r => { summary[r.key] = isNaN(r.value) ? r.value : Number(r.value); });
+
+        // Orders: build order map, attach items/footer
+        const orderMap = {};
+        csv.orders.forEach(r => {
+          orderMap[r.id] = {
+            ...r,
+            total: Number(r.total),
+            items: [],
+            footer: []
+          };
+        });
+        csv.items.forEach(r => {
+          if (orderMap[r.orderId]) orderMap[r.orderId].items.push({
+            ...r,
+            unit: isNaN(Number(r.unit)) ? r.unit : Number(r.unit),
+            total: Number(r.total)
+          });
+        });
+        csv.footer.forEach(r => {
+          if (orderMap[r.orderId]) orderMap[r.orderId].footer.push({
+            label: r.label, value: r.value, class: r.footerClass
+          });
+        });
+        // Preserve original order
+        const orders = csv.orders.map(r => orderMap[r.id]);
+
+        // Breakdown & comparison
+        const breakdown = csv.breakdown.map(r => ({ label: r.label, amount: Number(r.amount) }));
+        const comparison = csv.comparison.map(r => ({ ...r, bold: r.bold === 'true' || r.bold === 'TRUE' }));
+
+        renderSummary(summary);
+        document.getElementById('receipts-container').innerHTML = orders.map(renderReceipt).join('');
+        renderGrandTotal(summary, breakdown);
+        renderComparison(comparison);
       })
-      .catch(() => {
-        document.getElementById('receipts-container').innerHTML =
-          '<p style="color:#8C4A2F;padding:1.5rem;background:#FFF0EE;border-radius:6px;margin:1rem 0">' +
-          '⚠ Could not load budget.json. Open this file through a local server: ' +
-          '<code>python3 -m http.server</code> then visit <code>http://localhost:8000</code></p>';
-      });
+      .catch(err => showError(`Could not load sheet: ${err.message}. Check that each tab is published to the web as CSV.`));
+    }
   </script>
 </body>
 </html>
