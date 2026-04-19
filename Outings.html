@@ -794,45 +794,6 @@ mc('c-active','bar',YEARS,[{
   data:activeMonths, backgroundColor:'rgba(107,158,120,0.7)', borderColor:'#6b9e78', borderWidth:1, borderRadius:4
 }],{scales:{y:{grid:{color:G}, ticks:{color:M, font:tickFont}, beginAtZero:true, max:12}, x:{grid:{color:G}, ticks:{color:M, font:tickFont}}}});
 
-// Timeline
-const tlBody = document.getElementById('tl-body');
-const MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-const TYPE_LABELS = {day:'Day',overnight:'Overnight',backpack:'Backpack',camp:'Summer Camp',adventure:'High Adv'};
-
-HIGHLIGHTS.forEach(h=>{
-  // Group events for this year by month
-  const yearEvents = ALL_EVENTS.filter(e=>e.date.startsWith(h.y));
-  const byMonth = {};
-  yearEvents.forEach(e=>{
-    const m = parseInt(e.date.split('-')[1],10)-1;
-    if(!byMonth[m]) byMonth[m]=[];
-    byMonth[m].push(e);
-  });
-  const monthsHtml = Object.keys(byMonth).sort((a,b)=>a-b).map(m=>{
-    const evHtml = byMonth[m].map(e=>`<div class="tl-event-item">
-      <div class="tl-event-dot dot-${e.type}"></div>
-      <span class="tl-event-name">${e.name}</span>
-      <span class="tl-event-type">${TYPE_LABELS[e.type]||e.type}</span>
-    </div>`).join('');
-    return `<div class="tl-month-group"><div class="tl-month-label">${MONTH_NAMES[m]}</div>${evHtml}</div>`;
-  }).join('');
-
-  const div = document.createElement('div');
-  div.className='tl-item';
-  div.innerHTML=`<div class="tl-year">${h.y} <span style="font-size:14px;font-family:'DM Sans',sans-serif;color:var(--bark);font-weight:300;">${h.c} outings</span><button class="tl-expand-btn" data-year="${h.y}">&#9656; Show Events</button></div><div class="tl-highlight">${h.txt}</div><div class="tl-events" id="tl-ev-${h.y}">${monthsHtml}</div>`;
-  tlBody.appendChild(div);
-});
-
-tlBody.addEventListener('click', e=>{
-  const btn = e.target.closest('.tl-expand-btn');
-  if(!btn) return;
-  const yr = btn.dataset.year;
-  const panel = document.getElementById('tl-ev-'+yr);
-  const open = panel.classList.toggle('open');
-  btn.innerHTML = open ? '&#9662; Hide Events' : '&#9656; Show Events';
-});
-
-
 // ── CALENDAR VIEW ─────────────────────────────────────────────────────────
 const ALL_EVENTS = [
   // 2017
