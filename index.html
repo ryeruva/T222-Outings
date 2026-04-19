@@ -7,6 +7,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Spectral:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+nav{background:#1A1410;padding:.55rem 1.5rem;font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.1em;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;position:sticky;top:0;z-index:100;margin:0 -1.5rem}
+nav a{color:#C4A882;text-decoration:none;text-transform:uppercase;transition:color .15s}
+nav a:hover{color:#C8A028}
+nav a.home{color:#C8A028;font-weight:500}
+nav .sep{color:#3D332A;font-size:.5rem}
+nav .current{color:#6B5040;text-transform:uppercase}
 :root{
   --ink:#1A1410;--stone:#3D332A;--bark:#6B5040;--sand:#C4A882;--cream:#F5EDD8;
   --sage:#7C9070;--sky:#4A7C9A;--gold:#C8A028;--ember:#C84820;--bg:#F0E8D5;
@@ -107,6 +113,12 @@ footer{border-top:1px solid var(--border);padding:2rem 0;margin-top:4rem;display
 </style>
 </head>
 <body>
+
+<nav>
+  <a href="index.html" class="home">&#8962; Troop 222</a>
+  <span class="sep">&#9679;</span>
+  <span class="current">Home</span>
+</nav>
 
 <section class="hero">
   <div class="hero-bg"></div>
