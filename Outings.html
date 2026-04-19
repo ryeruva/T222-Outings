@@ -327,7 +327,7 @@ footer{border-top:1px solid var(--border);padding:2rem 0;margin-top:2rem;display
   <button class="nav-btn" data-tab="highlights">Year Highlights</button>
   <button class="nav-btn" data-tab="calendar">Calendar</button>
   <button class="nav-btn" data-tab="map">Map View</button>
-  <button class="nav-btn" data-tab="planning">Planning Hub</button>
+  <a href="Planning_Hub.html" class="nav-btn" style="text-decoration:none;">Planning Hub ↗</a>
 </nav>
 
 <!-- ══ OVERVIEW ══ -->
@@ -467,27 +467,7 @@ footer{border-top:1px solid var(--border);padding:2rem 0;margin-top:2rem;display
   </div>
 </div>
 
-<!-- ══ PLANNING HUB ══ -->
-<div id="tab-planning" class="section">
-  <p class="section-label">For the Outing Coordinator</p>
-  <h2>Planning Hub</h2>
-  <p style="font-family:'Spectral',serif;font-style:italic;color:var(--bark);font-size:.88rem;margin-bottom:1.5rem">Every location T222 has visited — with booking links, reservation notes, and phone numbers sourced from 2016–2027 records.</p>
-  <div class="plan-search">
-    <input type="text" id="plan-search-input" placeholder="Search locations, notes, type...">
-    <select id="plan-type-filter">
-      <option value="all">All types</option>
-      <option value="Overnight Backpacking">Backpacking</option>
-      <option value="Overnight Outing">Overnight / Car Camp</option>
-      <option value="Day Outing">Day Outing</option>
-      <option value="Summer Camp">Summer Camp</option>
-      <option value="High Adventure">High Adventure</option>
-    </select>
-    <div class="plan-count" id="plan-count"></div>
-  </div>
-  <div class="plan-grid" id="plan-grid"></div>
-</div>
-
-<!-- MODAL -->
+ MODAL -->
 <div class="cal-modal-overlay" id="cal-modal-overlay">
   <div class="cal-modal">
     <button class="cal-modal-close" id="cal-modal-close">&#215;</button>
@@ -918,64 +898,6 @@ document.getElementById('cal-prev').addEventListener('click',()=>{calMonth--;if(
 document.getElementById('cal-next').addEventListener('click',()=>{calMonth++;if(calMonth>11){calMonth=0;calYear++;}renderCal();buildCalYearBtns();});
 buildCalYearBtns();renderCal();
 
-// ── PLANNING HUB ──
-const PLAN_LOCS=[
-  {name:'Philmont Scout Ranch',type:'High Adventure',loc:'Cimarron, New Mexico',visits:[2016,2019,2022,2025],website:'https://www.philmontscoutranch.org',booking:'BSA council lottery ~2 years in advance. $150 non-refundable deposit. Balance due May 1.',notes:'12-day expedition. ~$2,450/person (2025). Apply through council. T222 attended 3 times and has strong lottery history. SOLD OUT 2025.',warning:'',phone:''},
-  {name:'Florida Sea Base \u2013 Coral Reef Sailing',type:'High Adventure',loc:'Islamorada, Florida Keys, FL',visits:[2023,2027],website:'https://www.bsaseabase.org',booking:'Book directly through BSA Sea Base. 3 sailboats secured for 2027. 2nd payment due March 30, 2026.',notes:'6-night sailing adventure. T222 attended 2023 and has 2027 trip confirmed. Departs April 11, 2027.',warning:'',phone:''},
-  {name:'Northern Tier \u2013 Boundary Waters',type:'High Adventure',loc:'Ely, Minnesota (BWCAW)',visits:[2021,2024],website:'https://www.bsanortherntiercsr.org',booking:'Apply 1\u20132 years in advance through BSA Northern Tier reservation system.',notes:'10\u201312 day canoe trek in the Boundary Waters Canoe Area Wilderness. T222 attended 2021 and 2024.',warning:'',phone:''},
-  {name:'Summit Bechtel Reserve \u2013 National Jamboree',type:'High Adventure',loc:'Glen Jean, West Virginia',visits:[2017,2023],website:'https://www.scouting.org/jamboree',booking:'Register through BSA national when announced. Next Jamboree: 2027.',notes:'National Boy Scout Jamboree. T222 attended 2017 and 2023. Multi-week with 50,000+ scouts.',warning:'',phone:''},
-  {name:'Camp Wente / Wente Scout Reservation',type:'Summer Camp',loc:'Willits, CA',visits:[2018,2022,2025],website:'https://wente.goldengatescouting.org',booking:'Register through Golden Gate Area Council (GGAC). Non-GGAC units on space-available basis \u2014 register early.',notes:"Week-long BSA summer camp. $875/scout (2025). T222\u2019s most attended summer camp.",warning:'',phone:''},
-  {name:'Camp Oljato',type:'Summer Camp',loc:'CA',visits:[2017,2024],website:'',booking:'Register through BSA council.',notes:'Week-long summer camp. T222 attended 2017 and 2024.',warning:'',phone:''},
-  {name:'Camp Hi-Sierra',type:'Summer Camp',loc:'Long Barn, CA',visits:[2026],website:'',booking:'Register through BSA council. Sign-ups open.',notes:'Week-long summer camp. Planned July 12\u201318, 2026.',warning:'',phone:''},
-  {name:'Point Reyes \u2013 Wildcat Camp / Coast Camp',type:'Overnight Backpacking',loc:'Point Reyes National Seashore, Marin County',visits:[2016,2017,2018,2020,2025,2026],website:'https://www.nps.gov/pore',booking:'Reserve 90 days in advance on recreation.gov. Pick up permit in person at Bear Valley Visitor Center on arrival day.',notes:'~5-mile hike to Wildcat Camp or Coast Camp. Beach access at Wildcat. One of T222\u2019s most-visited backpacking spots \u2014 5 visits.',warning:'',phone:''},
-  {name:'May Lake / Mt. Hoffman \u2013 Yosemite',type:'Overnight Backpacking',loc:'Yosemite National Park, CA',visits:[2016,2017,2018,2020,2024],website:'https://www.nps.gov/yose',booking:'Wilderness permit lottery opens 24 weeks in advance at recreation.gov. Walk-up permits 7 days before at 7am PDT. Trailhead: Tioga Road (May Lake TH).',notes:"T222\u2019s most visited single backpacking location \u2014 5 times. Mt. Hoffman summit optional (10,850 ft). 2-mile hike from trailhead.",warning:'Tioga Road closed in winter \u2014 typically opens late May/June depending on snow.',phone:''},
-  {name:'Henry Coe State Park',type:'Overnight Backpacking',loc:'Morgan Hill, CA',visits:[2016,2018,2023,2024],website:'https://coepark.net',booking:'First-come first-served permits in person at park headquarters (8500 E Dunne Ave) or Dowdy Ranch. $5/person/night. No online booking.',notes:'Visited 4 times. Remote and rugged \u2014 largest state park in Northern CA. Multiple route options from HQ. Bring water filter.',warning:'',phone:'(408) 779-2728'},
-  {name:'Black Diamond Mines \u2013 Stewartville Camp',type:'Overnight Backpacking',loc:'Antioch, CA (East Bay)',visits:[2019,2021,2024,2026],website:'https://www.ebparks.org/parks/black-diamond',booking:'Reservations REQUIRED \u2014 call East Bay Regional Park District at least 3 business days in advance. No online booking.',notes:'3.2-mile hike to Stewartville camp. Great for beginners. Minimum 17 campers for group use. T222 has visited 4 times.',warning:'No online booking \u2014 phone reservation only.',phone:'(510) 544-2750'},
-  {name:'Castle Rock State Park \u2013 Trail Camp',type:'Overnight Backpacking',loc:'Santa Cruz Mountains, CA',visits:[2016,2022,2025],website:'https://www.parks.ca.gov/?page_id=538',booking:'Trail camp reservations open 60 days in advance. $15/night + $8 reservation fee. ~2.5-mile hike from parking.',notes:"T222\u2019s go-to Philmont prep backpacking site \u2014 3 visits. Great rock features, ridgeline views. Used for Philmont simulation.",warning:'',phone:'(831) 338-8860'},
-  {name:'Big Sur \u2013 Los Padres National Forest',type:'Overnight Backpacking',loc:'Big Sur, CA',visits:[2016,2024,2025],website:'https://www.fs.usda.gov/recarea/lpnf/recarea/?recid=10967',booking:'Free California Campfire Permit required (readyforwildfire.org). No parking fee at Hwy 1 trailheads.',notes:'3-mile hike in. 16 spots for T222 in 2025. Stunning coastal mountains and redwoods. Arroyo Seco & Santa Lucia trails used.',warning:'Check Cal Fire restrictions before any trip \u2014 fires often prohibited in summer/fall.',phone:''},
-  {name:'Desolation Wilderness',type:'Overnight Backpacking',loc:'El Dorado County, Lake Tahoe area, CA',visits:[2025],website:'https://www.fs.usda.gov/eldorado',booking:'Overnight permit required May 22\u2013Sep 30. Apply via recreation.gov lottery in March. Quota: 700 people/day.',notes:'Advanced 20-mile route with 5 miles off-trail. For experienced, fit scouts only. First visited 2025. Stunning high Sierra scenery.',warning:'Permit quota fills fast \u2014 apply in March lottery.',phone:''},
-  {name:'Monte Bello Open Space \u2013 Black Mountain',type:'Overnight Backpacking',loc:'Palo Alto, CA',visits:[2016,2025],website:'https://www.openspace.org/preserves/monte-bello',booking:'Reserve ~3 months in advance. $2/person/night. Non-potable water only \u2014 bring filter.',notes:'~1.5-mile hike from parking. Bay Area views. Great beginner backpacking.',warning:'Non-potable water \u2014 bring filter or enough water.',phone:'(650) 691-1200'},
-  {name:'Ohlone Wilderness Trail',type:'Overnight Backpacking',loc:'East Bay, Alameda/Santa Clara County, CA',visits:[2019,2026],website:'https://www.ebparks.org/parks/ohlone',booking:'Overnight camping reservation required \u2014 call EBRPD. Day-use permit also required ($5).',notes:'Used for Philmont prep (2019) and 50-Miler prep (2026). Remote and challenging 29-mile East Bay ridge trail.',warning:'Call to reserve \u2014 no online booking.',phone:'(510) 544-2750'},
-  {name:'Boulder Creek Scout Reservation',type:'Overnight Outing',loc:'Boulder Creek, CA',visits:[2017,2019,2021,2022,2023,2024],website:'https://pacsky.org/camping/bcsr/',booking:'Reserve through Pacific Skyline Council reservation system. Units outside PacSky should call ahead.',notes:"T222\u2019s most-used council facility \u2014 6+ visits. Used for NYLT, IOLS, Wood Badge, OA, leadership retreats. Pool access in summer.",warning:'',phone:''},
-  {name:'Pinnacles National Park',type:'Overnight Outing',loc:'Pinnacles National Park, CA',visits:[2016,2019,2021,2023,2025],website:'https://www.nps.gov/pinn',booking:'Reserve 6 months in advance on recreation.gov. Group campsites book fast.',notes:'T222 has visited 5 times. Spring and fall are best \u2014 summers are extremely hot. Talus caves, condor sightings.',warning:'Avoid free entrance days \u2014 park gets extremely crowded.',phone:''},
-  {name:'Memorial Park \u2013 Pescadero',type:'Overnight Outing',loc:'9500 Pescadero Creek Rd, Loma Mar, CA',visits:[2017,2021,2025],website:'https://www.smcgov.org/parks/memorial-park',booking:'Reservations open 6 months in advance. Holiday weekends require 3-night minimum.',notes:'Redwood camping on Pescadero Creek. Multiple campgrounds including Sequoia Campground. Great December/fall camping.',warning:'',phone:'(650) 879-0212'},
-  {name:'Coyote Lake Harvey Bear Ranch',type:'Overnight Outing',loc:'Gilroy, CA',visits:[2020,2023,2024],website:'https://parks.santaclaracounty.gov/locations/coyote-lake-harvey-bear-ranch-county-park',booking:'Reserve at gooutsideandplay.org or call. Opens 6 months in advance.',notes:'Car camping and cycling. Good winter/spring destination. Lake fishing, hiking trails.',warning:'',phone:'(408) 355-2201'},
-  {name:'Tuttletown Recreation Area (Gold Country)',type:'Overnight Outing',loc:'New Melones Lake, Calaveras County, CA',visits:[2019,2021,2022],website:'https://www.recreation.gov',booking:'Reserve on recreation.gov. Search \u201cTuttletown Recreation Area.\u201d',notes:'Car camping in the Gold Country foothills. New Melones Lake. Good fall trip.',warning:'',phone:''},
-  {name:'Northstar California Resort \u2013 Ski Trip',type:'Overnight Outing',loc:'Truckee, CA (Lake Tahoe area)',visits:[2025,2026],website:'https://www.northstarcalifornia.com',booking:'Buy lift tickets online in advance. Epic Pass holders get discounted access. Book lodging 6+ months out for MLK weekend.',notes:'Annual T222 ski trip. MLK weekend. Moved to Northstar from Squaw/Palisades starting 2025.',warning:'MLK weekend is peak season \u2014 book lodging immediately.',phone:''},
-  {name:'Santa Cruz Beach Boardwalk Scout Overnight',type:'Overnight Outing',loc:'Santa Cruz, CA',visits:[2022,2023,2025],website:'https://beachboardwalk.com/scout-overnights/',booking:'Register through the Boardwalk website. Limited spaces \u2014 sign up as soon as dates are released.',notes:'Scout overnight program at the Boardwalk \u2014 3 T222 visits. Great social outing. Usually Oct\u2013Nov.',warning:'Spaces fill very fast \u2014 watch for date release announcement.',phone:''},
-  {name:'Angel Island State Park',type:'Overnight Outing',loc:'San Francisco Bay, CA',visits:[2026],website:'https://www.parks.ca.gov/?page_id=468',booking:'Ferry required: Blue & Gold Fleet from Tiburon or SF Ferry Building. Reserve campsite on reservecalifornia.com. Ferry: blueandgoldfleet.com.',notes:'2-night camping. Family-friendly. Ferry access only \u2014 no cars. Historic military island with panoramic Bay views.',warning:'Campsite + ferry tickets both need advance booking separately.',phone:''},
-  {name:'Windy Hill Open Space Preserve',type:'Day Outing',loc:'Portola Valley, CA',visits:[2016,2018,2019,2022,2023,2025],website:'https://www.openspace.org/preserves/windy-hill',booking:'No reservations required. Open sunrise to sunset. Free parking at 555 Portola Rd.',notes:"T222\u2019s most-used day hike location \u2014 6+ visits. Primary Philmont prep hike. Spring Ridge Trail to summit (1,900 ft).",warning:'',phone:''},
-  {name:'Golden Gate National Cemetery \u2013 Memorial Day',type:'Day Outing',loc:'1300 Sneath Ln, San Bruno, CA',visits:[2016,2017,2018,2019,2022,2023,2024],website:'https://www.cem.va.gov/cems/nchp/goldengatenat.asp',booking:'No reservations required. Coordinate with cemetery staff in advance for large groups.',notes:'Annual Memorial Day flag placement. 7 visits \u2014 strongest T222 tradition.',warning:'',phone:''},
-  {name:'Cache Creek / American River \u2013 Whitewater Rafting',type:'Day Outing',loc:'Rumsey, CA / El Dorado County, CA',visits:[2016,2017,2018,2019,2022,2023],website:'https://www.gotwhitewater.com',booking:'Book through outfitter (Got Whitewater for Cache Creek, Sierra Whitewater for American River) several months in advance.',notes:'T222 has done rafting 6 times. Cache Creek (Class III) and South Fork American River (Class III-IV). Usually May\u2013June.',warning:'',phone:''},
-  {name:'El Corte Madera Creek / Skyline \u2013 Skeggs Point',type:'Day Outing',loc:'Skyline Blvd, CA (near Redwood City)',visits:[2022,2023,2025],website:'https://www.openspace.org/preserves/el-corte-de-madera',booking:'No reservations required. Free parking at Skeggs Point (Hwy 35).',notes:'Used for Philmont prep hikes and Purisima Creek connections. Good year-round. Wooded, shaded trails.',warning:'',phone:''},
-  {name:'Los Altos Rod & Gun Club \u2013 Shooting Sports',type:'Day Outing',loc:'14750 Skyline Blvd, Los Gatos, CA',visits:[2018,2019,2021,2023,2024,2025],website:'https://www.losaltosrodandgunclub.com',booking:'Contact club in advance to arrange BSA group visit. BSA-certified shooting sports instructor required.',notes:"T222\u2019s go-to shooting sports venue \u2014 6 visits. Shotgun and rifle practice.",warning:'BSA instructor required \u2014 confirm availability before booking.',phone:'(408) 867-3106'},
-  {name:'SF Urban Hike \u2013 Chinatown / Golden Gate Bridge',type:'Day Outing',loc:'San Francisco, CA',visits:[2016,2020,2021,2022,2023],website:'',booking:'No reservations required. Meet at China Gate (Grant Ave at Bush St). Parking: Sutter Stockton Garage. BART to Montgomery also works.',notes:'~10-mile SF urban hike. Multiple route variations. 5 T222 visits. Great for Hiking Merit Badge credit.',warning:'',phone:''},
-  {name:'Shoreline Lake Aquatic Center \u2013 Canoeing',type:'Day Outing',loc:'Mountain View, CA',visits:[2024],website:'https://www.mountainview.gov/depts/cs/shoreline/aquatic_center/default.asp',booking:'Reserve through Shoreline Aquatic Center. Group rates may be available.',notes:'Flat-water canoe/kayak training. Great for building paddling skills before bigger trips.',warning:'',phone:''},
-  {name:'Holbrook Palmer Park \u2013 Earth Day (ADAPT)',type:'Day Outing',loc:'Atherton, CA',visits:[2024,2025,2026],website:'https://www.ci.atherton.ca.us/264/Holbrook-Palmer-Park',booking:'No reservation needed. Watch for annual sign-up link from ADAPT Atherton 4\u20136 weeks before Earth Day.',notes:'Annual Earth Day conservation volunteer event. T222 has attended 3 consecutive years.',warning:'',phone:''},
-];
-
-function planTagCls(t){if(t==='Overnight Backpacking')return 'tag-bp';if(t==='High Adventure')return 'tag-adv';if(t==='Summer Camp')return 'tag-camp';if(t==='Overnight Outing')return 'tag-on';return 'tag-day';}
-function renderPlan(filter='all',search=''){
-  const grid=document.getElementById('plan-grid');const cnt=document.getElementById('plan-count');
-  grid.innerHTML='';const q=search.toLowerCase().trim();
-  const filtered=PLAN_LOCS.filter(p=>{
-    const tm=filter==='all'||p.type===filter;
-    const sm=!q||[p.name,p.loc,p.notes,p.booking,p.type].join(' ').toLowerCase().includes(q);
-    return tm&&sm;
-  });
-  cnt.textContent=filtered.length+' location'+(filtered.length!==1?'s':'');
-  if(!filtered.length){grid.innerHTML='<div class="plan-no-results">No locations match.</div>';return;}
-  filtered.sort((a,b)=>b.visits.length-a.visits.length).forEach(p=>{
-    const card=document.createElement('div');card.className='plan-card';
-    const yrs=p.visits.sort((a,b)=>a-b).join(', ');
-    const last=Math.max(...p.visits);
-    card.innerHTML=`<div class="plan-card-top"><div class="plan-card-title">${p.name}</div><span class="plan-card-type ${planTagCls(p.type)}" style="background:transparent;border:1px solid var(--border);font-size:.55rem;padding:.15rem .5rem">${p.type}</span></div><div class="plan-card-loc">${p.loc}</div><div class="plan-card-notes">${p.notes}</div>${p.booking?`<div class="plan-booking">${p.booking}</div>`:''} ${p.warning?`<div class="plan-warning">${p.warning}</div>`:''}<div class="plan-card-footer"><div style="flex:1"><div class="plan-card-visits">Visited <strong>${p.visits.length}\u00d7</strong> &nbsp;\u00b7&nbsp; Last: <strong>${last}</strong></div><div class="plan-years">${yrs}</div></div>${p.website?`<a class="plan-card-link" href="${p.website}" target="_blank" rel="noopener">Book \u2197</a>`:''} ${p.phone?`<span class="plan-card-phone">${p.phone}</span>`:''}</div>`;
-    grid.appendChild(card);
-  });
-}
-renderPlan();
-document.getElementById('plan-search-input').addEventListener('input',e=>renderPlan(document.getElementById('plan-type-filter').value,e.target.value));
-document.getElementById('plan-type-filter').addEventListener('change',e=>renderPlan(e.target.value,document.getElementById('plan-search-input').value));
 
 
 // ── EXPANDED CHRONICLE ──────────────────────────────────────────────────────
