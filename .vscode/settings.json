@@ -3,6 +3,15 @@
         "/^git checkout main && git merge feat/mealie-integration && git push origin main$/": {
             "approve": true,
             "matchCommandLine": true
+        },
+        "railway": true,
+        "/^git add mealie/docker-compose\\.yml && git commit -m \"Update Mealie config for Railway deployment: CORS and BASE_URL\" && git push origin main$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^git add Mt_Tallac_Menu\\.html Mt_Tallac_Expenses\\.html && git commit -m \"Update Mealie URLs to Railway deployment for GitHub Pages access\" && git push origin main$/": {
+            "approve": true,
+            "matchCommandLine": true
         }
     }
 }
