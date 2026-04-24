@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--ink:#1A1410;--stone:#3D332A;--bark:#6B5040;--sand:#C4A882;--cream:#F5EDD8;--gold:#C8A028;--bg:#F0E8D5;}
+:root{--ink:#1A1410;--stone:#3D332A;--bark:#6B5040;--sand:#C4A882;--cream:#F5EDD8;--gold:#C8A028;--bg:#F0E8D5;--fern:#4A6741;--sky:#6B8FA3;--warn:#C0392B;}
 body{background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
   background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(100,80,50,.06) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(100,80,50,.04) 40px);
@@ -22,10 +22,59 @@ nav .current{color:#6B5040;text-transform:uppercase}
 .header{padding:3rem 0 2rem;border-bottom:2px solid var(--gold);margin-bottom:2rem}
 .eyebrow{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--bark);margin-bottom:.5rem}
 h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,7vw,4.8rem);color:var(--stone);line-height:.92;margin-bottom:.4rem}
-.placeholder{background:#fff;border:1px solid #D0C8BC;border-radius:5px;padding:2.5rem;text-align:center;margin-top:2rem}
-.placeholder-icon{font-size:2.5rem;margin-bottom:1rem}
-.placeholder h2{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--stone);margin-bottom:.5rem}
-.placeholder p{font-size:.84rem;color:var(--bark);line-height:1.75;max-width:400px;margin:0 auto}
+
+/* ── Section ──────────────────────────────────────────────────── */
+.section-divider{border:none;border-top:2px solid var(--sand);margin:2.5rem 0 2rem}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.5rem}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--stone)}
+.section-sub{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--bark);opacity:.75}
+
+/* ── Budget summary cards ─────────────────────────────────────── */
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:1rem;margin-bottom:2rem}
+.stat-card{background:#fff;border:1px solid #D0C8BC;border-radius:5px;padding:1.1rem 1.25rem}
+.stat-label{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bark);margin-bottom:.35rem}
+.stat-value{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--stone);line-height:1}
+.stat-unit{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--bark);margin-top:.2rem}
+.stat-card.over .stat-value{color:var(--warn)}
+.stat-card.ok .stat-value{color:var(--fern)}
+
+/* ── Budget config bar ────────────────────────────────────────── */
+.config-bar{display:flex;gap:1rem;flex-wrap:wrap;align-items:center;margin-bottom:1.5rem;padding:.85rem 1rem;background:#fff;border:1px solid #D0C8BC;border-radius:5px}
+.config-bar label{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.08em;color:var(--bark);display:flex;align-items:center;gap:.4rem}
+.config-bar input{font-family:'DM Mono',monospace;font-size:.8rem;color:var(--ink);border:1px solid var(--sand);border-radius:3px;padding:.25rem .5rem;width:4.5rem;background:var(--bg)}
+.config-bar input:focus{outline:1px solid var(--gold)}
+
+/* ── Receipt form ─────────────────────────────────────────────── */
+.receipt-form{background:#fff;border:1px solid #D0C8BC;border-radius:5px;padding:1.25rem;margin-bottom:1.5rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr auto auto;gap:.6rem;align-items:end;flex-wrap:wrap}
+@media(max-width:600px){.form-row{grid-template-columns:1fr 1fr}}
+.field{display:flex;flex-direction:column;gap:.3rem}
+.field label{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bark)}
+.field input{font-family:'DM Sans',sans-serif;font-size:.88rem;border:1px solid var(--sand);border-radius:3px;padding:.45rem .65rem;background:var(--bg);color:var(--ink)}
+.field input:focus{outline:1px solid var(--gold)}
+.btn{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;padding:.5rem .9rem;border-radius:3px;border:1px solid var(--sand);background:transparent;color:var(--bark);cursor:pointer;transition:background .15s,color .15s;white-space:nowrap}
+.btn:hover{background:var(--sand);color:var(--ink)}
+.btn-primary{background:var(--gold);border-color:var(--gold);color:#fff}
+.btn-primary:hover{background:#a88020}
+.btn-danger{border-color:#D0C8BC;color:var(--bark);font-size:.6rem;padding:.35rem .6rem}
+.btn-danger:hover{background:var(--warn);border-color:var(--warn);color:#fff}
+
+/* ── Receipt list ─────────────────────────────────────────────── */
+.receipt-table{width:100%;border-collapse:collapse;font-size:.84rem}
+.receipt-table th{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bark);padding:.4rem .6rem;border-bottom:1px solid var(--sand);text-align:left}
+.receipt-table td{padding:.6rem .6rem;border-bottom:1px solid rgba(196,168,130,.25);vertical-align:middle;color:var(--ink)}
+.receipt-table tr:last-child td{border-bottom:none}
+.receipt-table .amount{font-family:'DM Mono',monospace;font-weight:500}
+.receipt-empty{font-size:.84rem;color:var(--bark);opacity:.6;font-style:italic;padding:1.5rem 0;text-align:center}
+.receipt-total-row td{font-family:'DM Mono',monospace;font-size:.78rem;font-weight:500;color:var(--stone);border-top:2px solid var(--sand);padding-top:.75rem}
+
+/* ── Shopping reference ───────────────────────────────────────── */
+.shop-ref{background:#fff;border:1px solid #D0C8BC;border-radius:5px;padding:1.25rem}
+.shop-ref-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.25rem .75rem;margin-top:.75rem}
+.shop-ref-item{font-size:.8rem;color:var(--bark);padding:.25rem 0;border-bottom:1px solid rgba(196,168,130,.15);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.shop-ref-loading{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--bark);opacity:.6;letter-spacing:.08em}
+.mealie-badge{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;padding:.2rem .55rem;border-radius:2rem;border:1px solid var(--sand);color:var(--bark);margin-left:.5rem;opacity:.7}
+
 footer{border-top:1px solid rgba(100,80,50,.2);padding:2rem 0;margin-top:3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
 .footer-brand{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--bark)}
 .footer-note{font-family:'DM Mono',monospace;font-size:.63rem;color:var(--bark);opacity:.55}
@@ -46,15 +95,221 @@ footer{border-top:1px solid rgba(100,80,50,.2);padding:2rem 0;margin-top:3rem;di
     <p class="eyebrow">Hike 3 · 50-Miler Prep Series · May 8–10, 2026</p>
     <h1>Mt. Tallac<br>Expenses</h1>
   </div>
-  <div class="placeholder">
-    <div class="placeholder-icon">💰</div>
-    <h2>Expense Report Pending</h2>
-    <p>Food and supply purchases for Hike 3 (Mt. Tallac · May 8–10) will be tracked here after the trip. Check back post-hike.</p>
+
+  <!-- ── Budget overview ─────────────────────────────────────── -->
+  <div class="section-head">
+    <span class="section-title">Budget Overview</span>
   </div>
+
+  <div class="config-bar">
+    <label>Crew size <input type="number" id="crew-size" value="10" min="1" max="100" onchange="refresh()"></label>
+    <label>Days out <input type="number" id="trip-days" value="3" min="1" max="14" onchange="refresh()"></label>
+    <label>Budget $/person/day <input type="number" id="budget-ppd" value="15" min="1" max="100" onchange="refresh()"></label>
+  </div>
+
+  <div class="summary-grid" id="summary-grid">
+    <!-- rendered by JS -->
+  </div>
+
+  <!-- ── Receipt tracker ────────────────────────────────────── -->
+  <hr class="section-divider">
+  <div class="section-head">
+    <span class="section-title">Receipts</span>
+    <span class="section-sub">Grubmaster · enter each purchase</span>
+  </div>
+
+  <div class="receipt-form">
+    <div class="form-row">
+      <div class="field">
+        <label>Grubmaster</label>
+        <input type="text" id="f-who" placeholder="Scout name">
+      </div>
+      <div class="field">
+        <label>Store / vendor</label>
+        <input type="text" id="f-store" placeholder="e.g. REI, Amazon Fresh">
+      </div>
+      <div class="field">
+        <label>Amount ($)</label>
+        <input type="number" id="f-amount" placeholder="0.00" step="0.01" min="0">
+      </div>
+      <button class="btn btn-primary" onclick="addReceipt()" style="align-self:flex-end">Add</button>
+    </div>
+  </div>
+
+  <div id="receipt-list-container">
+    <!-- rendered by JS -->
+  </div>
+
+  <!-- ── Mealie shopping reference ──────────────────────────── -->
+  <hr class="section-divider">
+  <div class="section-head">
+    <span class="section-title">Shopping Reference <span class="mealie-badge">from Mealie</span></span>
+    <span class="section-sub">Ingredient list pulled from the crew menu</span>
+  </div>
+  <div class="shop-ref">
+    <div id="shop-ref-container"><p class="shop-ref-loading">Loading from Mealie…</p></div>
+  </div>
+
   <footer>
     <span class="footer-brand">Troop 222</span>
     <span class="footer-note">Hike 3 · Mt. Tallac · May 8–10, 2026 · Expenses</span>
   </footer>
 </div>
+
+<script>
+// ── Configuration — must match Mt_Tallac_Menu.html ────────────────────────────
+const MEALIE_BASE  = '';
+    const MEALIE_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb25nX3Rva2VuIjp0cnVlLCJpZCI6ImE2MjU5YWQwLTc5YWYtNDhhYi1iY2UwLWFlOGFlMjY5ZmU0YSIsIm5hbWUiOiJUMjIyIFJlYWQtT25seVwiIiwiaW50ZWdyYXRpb25faWQiOiJnZW5lcmljIiwiZXhwIjoxOTM0NjU4MDg1fQ.gjOyWJCXTM3uBNxELNLZ3_dTYCPucKV5CDUj8S2_Pvw';         // read-only API token
+const TRIP_START   = '2026-05-08';
+const TRIP_END     = '2026-05-10';
+const STORAGE_KEY  = 't222-tallac-receipts';
+
+// ── Receipt storage (localStorage) ───────────────────────────────────────────
+function loadReceipts() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+  catch { return []; }
+}
+
+function saveReceipts(list) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+}
+
+function addReceipt() {
+  const who    = document.getElementById('f-who').value.trim();
+  const store  = document.getElementById('f-store').value.trim();
+  const amount = parseFloat(document.getElementById('f-amount').value);
+  if (!store || isNaN(amount) || amount <= 0) return;
+  const list = loadReceipts();
+  list.push({ id: Date.now(), who, store, amount: +amount.toFixed(2), date: new Date().toISOString() });
+  saveReceipts(list);
+  document.getElementById('f-who').value    = '';
+  document.getElementById('f-store').value  = '';
+  document.getElementById('f-amount').value = '';
+  refresh();
+}
+
+function removeReceipt(id) {
+  saveReceipts(loadReceipts().filter(r => r.id !== id));
+  refresh();
+}
+
+// ── Rendering ─────────────────────────────────────────────────────────────────
+function fmt(n) { return '$' + n.toFixed(2); }
+
+function renderReceipts(list) {
+  const el = document.getElementById('receipt-list-container');
+  if (!list.length) {
+    el.innerHTML = '<p class="receipt-empty">No receipts yet — add the first purchase above.</p>';
+    return;
+  }
+  const total = list.reduce((s, r) => s + r.amount, 0);
+  const rows  = list.map(r => {
+    const d = new Date(r.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    return `<tr>
+      <td>${r.who || '—'}</td>
+      <td>${r.store}</td>
+      <td class="amount">${fmt(r.amount)}</td>
+      <td style="color:var(--bark);font-size:.75rem">${d}</td>
+      <td><button class="btn btn-danger" onclick="removeReceipt(${r.id})">✕</button></td>
+    </tr>`;
+  }).join('');
+  el.innerHTML = `<table class="receipt-table">
+    <thead><tr><th>Grubmaster</th><th>Store</th><th>Amount</th><th>Date</th><th></th></tr></thead>
+    <tbody>
+      ${rows}
+      <tr class="receipt-total-row"><td colspan="2">Total</td><td class="amount">${fmt(total)}</td><td colspan="2"></td></tr>
+    </tbody>
+  </table>`;
+}
+
+function renderSummary(list) {
+  const crewSize  = parseInt(document.getElementById('crew-size').value)  || 10;
+  const tripDays  = parseInt(document.getElementById('trip-days').value)  || 3;
+  const budgetPPD = parseFloat(document.getElementById('budget-ppd').value) || 15;
+
+  const totalBudget = crewSize * tripDays * budgetPPD;
+  const totalSpent  = list.reduce((s, r) => s + r.amount, 0);
+  const remaining   = totalBudget - totalSpent;
+  const perPerson   = list.length ? totalSpent / crewSize : 0;
+  const isOver      = remaining < 0;
+
+  document.getElementById('summary-grid').innerHTML = `
+    <div class="stat-card">
+      <div class="stat-label">Food Budget</div>
+      <div class="stat-value">${fmt(totalBudget)}</div>
+      <div class="stat-unit">${crewSize} crew · ${tripDays} days · ${fmt(budgetPPD)}/person/day</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Receipts In</div>
+      <div class="stat-value">${fmt(totalSpent)}</div>
+      <div class="stat-unit">${list.length} receipt${list.length !== 1 ? 's' : ''}</div>
+    </div>
+    <div class="stat-card ${isOver ? 'over' : 'ok'}">
+      <div class="stat-label">${isOver ? 'Over Budget' : 'Remaining'}</div>
+      <div class="stat-value">${fmt(Math.abs(remaining))}</div>
+      <div class="stat-unit">${isOver ? 'exceeds budget' : 'left to spend'}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Per Person (actual)</div>
+      <div class="stat-value">${fmt(perPerson)}</div>
+      <div class="stat-unit">across ${crewSize} crew</div>
+    </div>`;
+}
+
+function refresh() {
+  const list = loadReceipts();
+  renderSummary(list);
+  renderReceipts(list);
+}
+
+// ── Mealie shopping reference ─────────────────────────────────────────────────
+async function loadShoppingRef() {
+  const el = document.getElementById('shop-ref-container');
+  if (!MEALIE_TOKEN) {
+    el.innerHTML = '<p class="shop-ref-loading">Set MEALIE_BASE and MEALIE_TOKEN in this file to pull the ingredient list.</p>';
+    return;
+  }
+  try {
+    const hdrs = { 'Authorization': `Bearer ${MEALIE_TOKEN}`, 'Accept': 'application/json' };
+    const mpRes = await fetch(
+      `${MEALIE_BASE}/api/households/mealplans?startDate=${TRIP_START}&endDate=${TRIP_END}&perPage=50`,
+      { headers: hdrs }
+    );
+    if (!mpRes.ok) throw new Error(`Mealie ${mpRes.status}`);
+    const mp = await mpRes.json();
+    const entries = mp.items || [];
+
+    await Promise.all(entries.map(async e => {
+      if (!e.recipe?.slug) return;
+      try {
+        const r = await fetch(`${MEALIE_BASE}/api/recipes/${e.recipe.slug}`, { headers: hdrs });
+        e._recipe = r.ok ? await r.json() : null;
+      } catch { e._recipe = null; }
+    }));
+
+    const allIngredients = new Map();
+    for (const e of entries) {
+      for (const i of (e._recipe?.recipeIngredient || [])) {
+        const name = (i.food?.name || i.note || '').trim();
+        if (!name) continue;
+        const key = name.toLowerCase();
+        if (!allIngredients.has(key)) allIngredients.set(key, name);
+      }
+    }
+
+    const sorted = [...allIngredients.values()].sort((a, b) => a.localeCompare(b));
+    if (!sorted.length) {
+      el.innerHTML = '<p class="shop-ref-loading">No ingredients found — add recipes to the May 8–10 meal plan in Mealie.</p>';
+      return;
+    }
+    el.innerHTML = `<p style="font-size:.78rem;color:var(--bark);opacity:.75;margin-bottom:.5rem">${sorted.length} unique ingredients from the crew menu</p>
+      <div class="shop-ref-list">${sorted.map(n => `<div class="shop-ref-item">· ${n}</div>`).join('')}</div>`;
+  } catch (err) {
+    el.innerHTML = `<p class="shop-ref-loading">Could not reach Mealie: ${err.message}</p>`;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => { refresh(); loadShoppingRef(); });
+</script>
 </body>
 </html>
