@@ -462,18 +462,6 @@
       <h1>Mt. Tallac<br>Crew Menu</h1>
     </div>
 
-    <!--
-    SETUP: Replace the two constants below with your Mealie instance details.
-    MEALIE_BASE — URL of your self-hosted Mealie server (no trailing slash)
-    MEALIE_TOKEN — a read-only API token from Mealie → Profile → API Tokens
-    Then in Mealie, create a Meal Plan for May 8–10, 2026 and add recipes for each meal.
-  -->
-    <div class="config-notice" id="config-notice">
-      <strong>Mealie not connected.</strong> Edit this file and set <code>MEALIE_BASE</code> and
-      <code>MEALIE_TOKEN</code>
-      in the script below, then add the May 8–10 meal plan in your Mealie instance.
-      Once connected this notice disappears automatically.
-    </div>
 
     <div id="menu-container"></div>
     <div id="shopping-list-container"></div>
@@ -570,10 +558,8 @@
       const container = document.getElementById('menu-container');
       const notice = document.getElementById('config-notice');
 
-      if (!MEALIE_TOKEN) return; // leave placeholder notice visible
-
       notice.style.display = 'none';
-      container.innerHTML = '<p class="loading">Loading meal plan from Mealie…</p>';
+      container.innerHTML = '<p class="loading">Loading meal plan…</p>';
 
       try {
         const entries = await fetchMealPlan();
