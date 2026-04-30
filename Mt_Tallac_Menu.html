@@ -486,10 +486,7 @@
 
   <script>
     // ── Configuration ─────────────────────────────────────────────────────────────
-    const MEALIE_BASE = 'https://t222-mealplan.up.railway.app';
-    const MEALIE_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb25nX3Rva2VuIjp0cnVlLCJpZCI6IjJkYmRjNTE1LWIzODEtNDQ2NC1iMmM0LTkxYmY2YWI2MTI3YiIsIm5hbWUiOiJUMjIyIiwiaW50ZWdyYXRpb25faWQiOiJnZW5lcmljIiwiZXhwIjoxOTM1MTU1NDc2fQ.2bMZqrVbuUmuVIuzS6P8ypt6SiZLacIYHI5DSGVevm4';         // read-only API token from Mealie profile
-    const TRIP_START = '2026-05-08';
-    const TRIP_END = '2026-05-10';
+    const DATA_URL = 'data/mt_tallac.json';
 
     // ── Trip-specific day labels (customize as needed) ────────────────────────────
     const DAY_LABELS = {
@@ -499,33 +496,16 @@
     };
 
     // ── Allergy / dietary tags Mealie uses ────────────────────────────────────────
-    // Add or remove tags to match whatever tagging convention your troop uses in Mealie.
     const ALLERGY_TAGS = new Set(['gluten-free', 'nut-free', 'dairy-free', 'vegan', 'vegetarian', 'egg-free', 'soy-free']);
 
     const MEAL_ORDER = ['breakfast', 'lunch', 'dinner', 'side', 'dessert'];
     const MEAL_LABELS = { breakfast: 'Breakfast', lunch: 'Lunch', dinner: 'Dinner', side: 'Snacks', dessert: 'Dessert' };
 
-    // ── Helpers ───────────────────────────────────────────────────────────────────
-    function authHeaders() {
-      return { 'Authorization': `Bearer ${MEALIE_TOKEN}`, 'Accept': 'application/json' };
-    }
-
-    async function mealieGet(path) {
-      const res = await fetch(`${MEALIE_BASE}${path}`, { headers: authHeaders() });
-      if (!res.ok) throw new Error(`Mealie ${res.status} on ${path}`);
-      return res.json();
-    }
-
     async function fetchMealPlan() {
-      const data = await mealieGet(
-        `/api/households/mealplans?startDate=${TRIP_START}&endDate=${TRIP_END}&perPage=50`
-      );
+      const res = await fetch(DATA_URL);
+      if (!res.ok) throw new Error(`Could not load data/mt_tallac.json (${res.status})`);
+      const data = await res.json();
       return data.items || [];
-    }
-
-    async function fetchRecipe(slug) {
-      try { return await mealieGet(`/api/recipes/${slug}`); }
-      catch { return null; }
     }
 
     // ── Rendering ─────────────────────────────────────────────────────────────────
@@ -606,10 +586,8 @@
           return;
         }
 
-        // Fetch all recipes concurrently
-        await Promise.all(entries.map(async e => {
-          e._recipe = e.recipe?.slug ? await fetchRecipe(e.recipe.slug) : null;
-        }));
+        // Recipes are pre-resolved by the GitHub Action into _recipe
+        entries.forEach(e => { e._recipe = e._recipe ?? null; });
 
         // Group by date
         const byDay = {};
@@ -623,7 +601,7 @@
       } catch (err) {
         container.innerHTML = `<div class="error-state">
       <p>Could not load meal plan: ${err.message}</p>
-      <p class="error-hint">Check that Mealie is reachable and the API token is valid.</p>
+      <p class="error-hint">Run the "Fetch Mealie Data" GitHub Action to populate data/mt_tallac.json.</p>
     </div>`;
       }
     }

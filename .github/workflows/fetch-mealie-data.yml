@@ -1,0 +1,72 @@
+name: Fetch Mealie Data
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'   # every 6 hours
+  workflow_dispatch:          # manual trigger
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch data from Mealie
+        env:
+          MEALIE_TOKEN: ${{ secrets.MEALIE_TOKEN }}
+        run: |
+          BASE="https://t222-mealplan.up.railway.app"
+          AUTH="Authorization: Bearer $MEALIE_TOKEN"
+
+          # Mt Tallac meal plan (May 8-10 2026)
+          curl -sf -H "$AUTH" -H "Accept: application/json" \
+            "$BASE/api/households/mealplans?startDate=2026-05-08&endDate=2026-05-10&perPage=50" \
+            > data/mt_tallac_plan_raw.json
+
+          # Resolve full recipe details for each meal plan entry
+          python3 - <<'PYEOF'
+          import json, urllib.request, os
+
+          BASE = "https://t222-mealplan.up.railway.app"
+          TOKEN = os.environ["MEALIE_TOKEN"]
+
+          def get(path):
+              req = urllib.request.Request(
+                  f"{BASE}{path}",
+                  headers={"Authorization": f"Bearer {TOKEN}", "Accept": "application/json"}
+              )
+              with urllib.request.urlopen(req) as r:
+                  return json.loads(r.read())
+
+          # Mt Tallac meal plan with full recipes
+          plan = json.load(open("data/mt_tallac_plan_raw.json"))
+          for entry in plan.get("items", []):
+              slug = (entry.get("recipe") or {}).get("slug")
+              if slug:
+                  try:
+                      entry["_recipe"] = get(f"/api/recipes/{slug}")
+                  except Exception:
+                      entry["_recipe"] = None
+              else:
+                  entry["_recipe"] = None
+          json.dump(plan, open("data/mt_tallac.json", "w"), indent=2)
+          print(f"Mt Tallac: {len(plan.get('items', []))} entries saved")
+
+          # All recipes for Grubmaster Hub
+          recipes = get("/api/recipes?perPage=200&orderDirection=asc")
+          json.dump(recipes, open("data/grubmaster.json", "w"), indent=2)
+          print(f"Grubmaster: {len(recipes.get('items', []))} recipes saved")
+          PYEOF
+
+          rm -f data/mt_tallac_plan_raw.json
+
+      - name: Commit updated data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/mt_tallac.json data/grubmaster.json
+          git diff --staged --quiet || git commit -m "chore: refresh Mealie data [skip ci]"
+          git push

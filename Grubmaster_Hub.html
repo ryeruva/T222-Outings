@@ -538,46 +538,19 @@
 
   <script>
     const MEALIE_BASE = 'https://t222-mealplan.up.railway.app';
-    const MEALIE_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb25nX3Rva2VuIjp0cnVlLCJpZCI6IjJkYmRjNTE1LWIzODEtNDQ2NC1iMmM0LTkxYmY2YWI2MTI3YiIsIm5hbWUiOiJUMjIyIiwiaW50ZWdyYXRpb25faWQiOiJnZW5lcmljIiwiZXhwIjoxOTM1MTU1NDc2fQ.2bMZqrVbuUmuVIuzS6P8ypt6SiZLacIYHI5DSGVevm4'
     let ALL_RECIPES = [];
     let ALL_CATEGORIES = [];
 
-    async function apiGet(path) {
-      const res = await fetch(`${MEALIE_BASE}${path}`, {
-        headers: { 'Authorization': `Bearer ${MEALIE_TOKEN}`, 'Accept': 'application/json' }
-      });
-      if (!res.ok) throw new Error(`Mealie error: ${res.status}`);
-      return res.json();
-    }
-
     async function loadRecipes() {
       try {
-        const data = await apiGet('/api/recipes?perPage=100');
+        const res = await fetch('data/grubmaster.json');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
         ALL_RECIPES = data.items || [];
         renderRecipes();
-        loadCategories();
       } catch (err) {
         document.getElementById('recipe-grid').innerHTML = `<p class="loading" style="color:var(--ember)">Error loading recipes: ${err.message}</p>`;
       }
-    }
-
-    async function loadCategories() {
-      try {
-        ALL_CATEGORIES = await apiGet('/api/categories');
-        const filterRow = document.getElementById('category-filters');
-        ALL_CATEGORIES.forEach(cat => {
-          const btn = document.createElement('button');
-          btn.className = 'filter-btn';
-          btn.textContent = cat.name;
-          btn.dataset.cat = cat.name;
-          btn.onclick = () => {
-            document.querySelectorAll('#category-filters .filter-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            renderRecipes(cat.name);
-          };
-          filterRow.appendChild(btn);
-        });
-      } catch (err) { console.error("Categories failed", err); }
     }
 
     function renderRecipes(filterCat = 'all') {
@@ -623,7 +596,13 @@
       grid.innerHTML = '<p class="loading">Fetching plan...</p>';
 
       try {
-        const data = await apiGet(`/api/households/mealplans?startDate=${start}&endDate=${end}`);
+        const TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb25nX3Rva2VuIjp0cnVlLCJpZCI6IjJkYmRjNTE1LWIzODEtNDQ2NC1iMmM0LTkxYmY2YWI2MTI3YiIsIm5hbWUiOiJUMjIyIiwiaW50ZWdyYXRpb25faWQiOiJnZW5lcmljIiwiZXhwIjoxOTM1MTU1NDc2fQ.2bMZqrVbuUmuVIuzS6P8ypt6SiZLacIYHI5DSGVevm4';
+        const res = await fetch(
+          `${MEALIE_BASE}/api/households/mealplans?startDate=${start}&endDate=${end}`,
+          { headers: { 'Authorization': `Bearer ${TOKEN}`, 'Accept': 'application/json' } }
+        );
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
         const items = data.items || [];
 
         if (items.length === 0) {
@@ -631,7 +610,6 @@
           return;
         }
 
-        // Group by date
         const byDay = {};
         items.forEach(i => {
           if (!byDay[i.date]) byDay[i.date] = [];
@@ -644,23 +622,17 @@
           dayDiv.className = 'plan-day';
           const d = new Date(date + 'T12:00:00');
           const dStr = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
-
-          let mealsHtml = byDay[date].map(m => `
-        <div class="plan-meal">
-          <div class="plan-meal-type">${m.entryType}</div>
-          <div class="plan-meal-name">${m.recipe ? m.recipe.name : m.title}</div>
-        </div>
-      `).join('');
-
-          dayDiv.innerHTML = `
-        <div class="plan-day-title">${dStr}</div>
-        ${mealsHtml}
-      `;
+          const mealsHtml = byDay[date].map(m => `
+            <div class="plan-meal">
+              <div class="plan-meal-type">${m.entryType}</div>
+              <div class="plan-meal-name">${m.recipe ? m.recipe.name : m.title}</div>
+            </div>`).join('');
+          dayDiv.innerHTML = `<div class="plan-day-title">${dStr}</div>${mealsHtml}`;
           grid.appendChild(dayDiv);
         });
 
       } catch (err) {
-        grid.innerHTML = `<p class="loading" style="color:var(--ember)">Failed to load meal plan.</p>`;
+        grid.innerHTML = `<p class="loading" style="color:var(--ember)">Could not load meal plan — CORS must be enabled on the Railway server.</p>`;
       }
     }
 
