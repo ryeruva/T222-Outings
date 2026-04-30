@@ -18,31 +18,33 @@ jobs:
         env:
           MEALIE_TOKEN: ${{ secrets.MEALIE_TOKEN }}
         run: |
-          BASE="https://t222-mealplan.up.railway.app"
-          AUTH="Authorization: Bearer $MEALIE_TOKEN"
-
-          # Mt Tallac meal plan (May 8-10 2026)
-          curl -sf -H "$AUTH" -H "Accept: application/json" \
-            "$BASE/api/households/mealplans?startDate=2026-05-08&endDate=2026-05-10&perPage=50" \
-            > data/mt_tallac_plan_raw.json
-
-          # Resolve full recipe details for each meal plan entry
           python3 - <<'PYEOF'
-          import json, urllib.request, os
+          import json, urllib.request, urllib.error, os, sys
 
-          BASE = "https://t222-mealplan.up.railway.app"
-          TOKEN = os.environ["MEALIE_TOKEN"]
+          BASE  = "https://t222-mealplan.up.railway.app"
+          TOKEN = os.environ.get("MEALIE_TOKEN", "")
+
+          if not TOKEN:
+              print("ERROR: MEALIE_TOKEN secret is not set.")
+              sys.exit(1)
 
           def get(path):
               req = urllib.request.Request(
                   f"{BASE}{path}",
                   headers={"Authorization": f"Bearer {TOKEN}", "Accept": "application/json"}
               )
-              with urllib.request.urlopen(req) as r:
-                  return json.loads(r.read())
+              try:
+                  with urllib.request.urlopen(req) as r:
+                      return json.loads(r.read())
+              except urllib.error.HTTPError as e:
+                  body = e.read().decode()
+                  print(f"HTTP {e.code} on {path}: {body[:300]}")
+                  raise
 
-          # Mt Tallac meal plan with full recipes
-          plan = json.load(open("data/mt_tallac_plan_raw.json"))
+          os.makedirs("data", exist_ok=True)
+
+          # ── Mt Tallac meal plan (May 8-10 2026) with full recipe details ──
+          plan = get("/api/households/mealplans?startDate=2026-05-08&endDate=2026-05-10&perPage=50")
           for entry in plan.get("items", []):
               slug = (entry.get("recipe") or {}).get("slug")
               if slug:
@@ -53,15 +55,13 @@ jobs:
               else:
                   entry["_recipe"] = None
           json.dump(plan, open("data/mt_tallac.json", "w"), indent=2)
-          print(f"Mt Tallac: {len(plan.get('items', []))} entries saved")
+          print(f"Mt Tallac: {len(plan.get('items', []))} meal plan entries saved")
 
-          # All recipes for Grubmaster Hub
+          # ── All recipes for Grubmaster Hub ──
           recipes = get("/api/recipes?perPage=200&orderDirection=asc")
           json.dump(recipes, open("data/grubmaster.json", "w"), indent=2)
           print(f"Grubmaster: {len(recipes.get('items', []))} recipes saved")
           PYEOF
-
-          rm -f data/mt_tallac_plan_raw.json
 
       - name: Commit updated data
         run: |

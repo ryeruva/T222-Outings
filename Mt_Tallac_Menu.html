@@ -123,22 +123,6 @@
     }
 
     /* ── Config notice ────────────────────────────────────────────── */
-    .config-notice {
-      background: #fff8ed;
-      border: 1px solid var(--gold);
-      border-radius: 4px;
-      padding: 1rem 1.25rem;
-      margin-bottom: 2rem;
-      font-family: 'DM Mono', monospace;
-      font-size: .72rem;
-      color: var(--bark);
-      line-height: 1.7
-    }
-
-    .config-notice strong {
-      color: var(--stone)
-    }
-
     .config-notice code {
       background: rgba(0, 0, 0, .06);
       padding: .1em .35em;
@@ -556,9 +540,6 @@
     // ── Main ──────────────────────────────────────────────────────────────────────
     async function loadMenu() {
       const container = document.getElementById('menu-container');
-      const notice = document.getElementById('config-notice');
-
-      notice.style.display = 'none';
       container.innerHTML = '<p class="loading">Loading meal plan…</p>';
 
       try {

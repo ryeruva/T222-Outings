@@ -596,7 +596,7 @@
       grid.innerHTML = '<p class="loading">Fetching plan...</p>';
 
       try {
-        const TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb25nX3Rva2VuIjp0cnVlLCJpZCI6IjJkYmRjNTE1LWIzODEtNDQ2NC1iMmM0LTkxYmY2YWI2MTI3YiIsIm5hbWUiOiJUMjIyIiwiaW50ZWdyYXRpb25faWQiOiJnZW5lcmljIiwiZXhwIjoxOTM1MTU1NDc2fQ.2bMZqrVbuUmuVIuzS6P8ypt6SiZLacIYHI5DSGVevm4';
+        const TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb25nX3Rva2VuIjp0cnVlLCJpZCI6IjJkYmRjNTE1LWIzODEtNDQ2NC1iMmM0LTkxYmY2YWI2MTI3YiIsIm5hbWUiOiJUMjIyIiwiaW50ZWdyYXRpb25faWQiOiJnZW5lcmljIiwiZXhwIjoxOTM1MjUxMjMzfQ.tvwh_ch5oTH4rHSUDAlQfz8nWyyuXs-2CYdChX6Qcs0';
         const res = await fetch(
           `${MEALIE_BASE}/api/households/mealplans?startDate=${start}&endDate=${end}`,
           { headers: { 'Authorization': `Bearer ${TOKEN}`, 'Accept': 'application/json' } }
