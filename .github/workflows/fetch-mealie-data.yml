@@ -61,12 +61,17 @@ jobs:
           recipes = get("/api/recipes?perPage=200&orderDirection=asc")
           json.dump(recipes, open("data/grubmaster.json", "w"), indent=2)
           print(f"Grubmaster: {len(recipes.get('items', []))} recipes saved")
+
+          # ── Full year meal plans for Grubmaster Hub date picker ──
+          mealplans = get("/api/households/mealplans?startDate=2026-01-01&endDate=2026-12-31&perPage=365")
+          json.dump(mealplans, open("data/mealplans.json", "w"), indent=2)
+          print(f"Meal plans: {len(mealplans.get('items', []))} entries saved")
           PYEOF
 
       - name: Commit updated data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/mt_tallac.json data/grubmaster.json
+          git add data/mt_tallac.json data/grubmaster.json data/mealplans.json
           git diff --staged --quiet || git commit -m "chore: refresh Mealie data [skip ci]"
           git push

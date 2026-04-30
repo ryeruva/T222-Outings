@@ -596,14 +596,10 @@
       grid.innerHTML = '<p class="loading">Fetching plan...</p>';
 
       try {
-        const TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb25nX3Rva2VuIjp0cnVlLCJpZCI6IjJkYmRjNTE1LWIzODEtNDQ2NC1iMmM0LTkxYmY2YWI2MTI3YiIsIm5hbWUiOiJUMjIyIiwiaW50ZWdyYXRpb25faWQiOiJnZW5lcmljIiwiZXhwIjoxOTM1MjUxMjMzfQ.tvwh_ch5oTH4rHSUDAlQfz8nWyyuXs-2CYdChX6Qcs0';
-        const res = await fetch(
-          `${MEALIE_BASE}/api/households/mealplans?startDate=${start}&endDate=${end}`,
-          { headers: { 'Authorization': `Bearer ${TOKEN}`, 'Accept': 'application/json' } }
-        );
+        const res = await fetch('data/mealplans.json');
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
-        const items = data.items || [];
+        const items = (data.items || []).filter(i => i.date >= start && i.date <= end);
 
         if (items.length === 0) {
           grid.innerHTML = '<p class="loading">No meals planned for these dates.</p>';
@@ -632,7 +628,7 @@
         });
 
       } catch (err) {
-        grid.innerHTML = `<p class="loading" style="color:var(--ember)">Could not load meal plan — CORS must be enabled on the Railway server.</p>`;
+        grid.innerHTML = `<p class="loading" style="color:var(--ember)">Could not load meal plan: ${err.message}</p>`;
       }
     }
 
