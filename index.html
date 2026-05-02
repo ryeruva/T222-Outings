@@ -166,56 +166,11 @@ footer{border-top:1px solid var(--border);padding:2rem 0;margin-top:4rem;display
       </div>
     </div>
 
-    <!-- Next 3 Months List -->
+    <!-- Next 3 Months List — loaded from TroopTrack -->
     <div style="margin-top:2.5rem">
       <h3 style="font-family:'Bebas Neue',sans-serif; font-size:1.8rem; color:var(--stone); margin-bottom:1rem; border-bottom:1px solid var(--border); padding-bottom:.5rem;">Next 3 Months</h3>
-      <div style="display:flex; flex-direction:column; gap:.8rem;">
-        
-        <!-- Trip 1 -->
-        <div style="display:flex; align-items:center; background:var(--cream); padding:1rem 1.5rem; border:1px solid var(--border); border-radius:4px; gap:1.5rem; flex-wrap:wrap;">
-          <div style="min-width:70px; text-align:center;">
-            <div style="font-family:'Bebas Neue',sans-serif; font-size:1.6rem; color:var(--sky); line-height:1;">MAY 08</div>
-            <div style="font-family:'DM Mono',monospace; font-size:.65rem; color:var(--bark); text-transform:uppercase; margin-top:.2rem;">2026</div>
-          </div>
-          <div style="flex:1; min-width:200px;">
-            <h4 style="font-family:'Bebas Neue',sans-serif; font-size:1.4rem; color:var(--stone); margin-bottom:.2rem; letter-spacing:.05em;">50-Miler Prep — Mt. Tallac</h4>
-            <p style="font-size:.85rem; color:var(--bark); margin:0;">Desolation Wilderness, CA &nbsp;·&nbsp; Backpacking</p>
-          </div>
-          <div>
-            <a href="T222_2026_50Miler.html#prep-hikes" class="module-btn" style="padding:.5rem 1rem;">View Details</a>
-          </div>
-        </div>
-        
-        <!-- Trip 2 -->
-        <div style="display:flex; align-items:center; background:var(--cream); padding:1rem 1.5rem; border:1px solid var(--border); border-radius:4px; gap:1.5rem; flex-wrap:wrap;">
-          <div style="min-width:70px; text-align:center;">
-            <div style="font-family:'Bebas Neue',sans-serif; font-size:1.6rem; color:var(--sky); line-height:1;">MAY 23</div>
-            <div style="font-family:'DM Mono',monospace; font-size:.65rem; color:var(--bark); text-transform:uppercase; margin-top:.2rem;">2026</div>
-          </div>
-          <div style="flex:1; min-width:200px;">
-            <h4 style="font-family:'Bebas Neue',sans-serif; font-size:1.4rem; color:var(--stone); margin-bottom:.2rem; letter-spacing:.05em;">Angel Island Camping</h4>
-            <p style="font-size:.85rem; color:var(--bark); margin:0;">SF Bay, CA &nbsp;·&nbsp; Overnight</p>
-          </div>
-          <div>
-            <a href="#" class="module-btn disabled" style="padding:.5rem 1rem;">Logistics</a>
-          </div>
-        </div>
-        
-        <!-- Trip 3 -->
-        <div style="display:flex; align-items:center; background:var(--cream); padding:1rem 1.5rem; border:1px solid var(--border); border-radius:4px; gap:1.5rem; flex-wrap:wrap;">
-          <div style="min-width:70px; text-align:center;">
-            <div style="font-family:'Bebas Neue',sans-serif; font-size:1.6rem; color:var(--sky); line-height:1;">JUL 12</div>
-            <div style="font-family:'DM Mono',monospace; font-size:.65rem; color:var(--bark); text-transform:uppercase; margin-top:.2rem;">2026</div>
-          </div>
-          <div style="flex:1; min-width:200px;">
-            <h4 style="font-family:'Bebas Neue',sans-serif; font-size:1.4rem; color:var(--stone); margin-bottom:.2rem; letter-spacing:.05em;">Camp Hi-Sierra</h4>
-            <p style="font-size:.85rem; color:var(--bark); margin:0;">Long Barn, CA &nbsp;·&nbsp; Summer Camp</p>
-          </div>
-          <div>
-            <a href="#" class="module-btn disabled" style="padding:.5rem 1rem;">Logistics</a>
-          </div>
-        </div>
-
+      <div id="tt-events" style="display:flex; flex-direction:column; gap:.8rem;">
+        <p style="font-family:'DM Mono',monospace;font-size:.75rem;color:var(--bark);opacity:.6;">Loading events…</p>
       </div>
     </div>
   </div>
@@ -284,5 +239,50 @@ footer{border-top:1px solid var(--border);padding:2rem 0;margin-top:4rem;display
   </footer>
 </div>
 
+  <script>
+    async function loadUpcoming() {
+      const container = document.getElementById('tt-events');
+      try {
+        const res = await fetch('data/calendar.json');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const { events } = await res.json();
+
+        const now = new Date();
+        const cutoff = new Date(now);
+        cutoff.setMonth(cutoff.getMonth() + 3);
+
+        const upcoming = events.filter(e => {
+          const d = new Date(e.start);
+          return d >= now && d <= cutoff;
+        });
+
+        if (!upcoming.length) {
+          container.innerHTML = '<p style="font-family:\'DM Mono\',monospace;font-size:.75rem;color:var(--bark);opacity:.6;">No events in the next 3 months.</p>';
+          return;
+        }
+
+        container.innerHTML = upcoming.map(e => {
+          const d = new Date(e.start);
+          const label = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }).toUpperCase();
+          const year  = d.getFullYear();
+          const loc   = e.location || '';
+          return `
+            <div style="display:flex;align-items:center;background:var(--cream);padding:1rem 1.5rem;border:1px solid var(--border);border-radius:4px;gap:1.5rem;flex-wrap:wrap;">
+              <div style="min-width:70px;text-align:center;">
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--sky);line-height:1;">${label}</div>
+                <div style="font-family:'DM Mono',monospace;font-size:.65rem;color:var(--bark);text-transform:uppercase;margin-top:.2rem;">${year}</div>
+              </div>
+              <div style="flex:1;min-width:200px;">
+                <h4 style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--stone);margin-bottom:.2rem;letter-spacing:.05em;">${e.summary}</h4>
+                ${loc ? `<p style="font-size:.85rem;color:var(--bark);margin:0;">${loc}</p>` : ''}
+              </div>
+            </div>`;
+        }).join('');
+      } catch (err) {
+        container.innerHTML = `<p style="font-family:'DM Mono',monospace;font-size:.75rem;color:var(--bark);opacity:.6;">Could not load events: ${err.message}</p>`;
+      }
+    }
+    document.addEventListener('DOMContentLoaded', loadUpcoming);
+  </script>
 </body>
 </html>

@@ -124,78 +124,8 @@ footer{border-top:1px solid var(--border);padding:2rem 0;margin-top:3rem;display
     <div class="calendar-container">
       <h2 class="calendar-title">Upcoming Events</h2>
 
-      <div class="calendar-grid">
-        <!-- Event 1: Sunset State Beach -->
-        <div class="calendar-event">
-          <div class="event-header">
-            <div class="event-date">
-              <span class="event-month">April</span>
-              <span class="event-day">24</span>
-              <span class="event-year">2026</span>
-            </div>
-            <div class="event-type">Overnight</div>
-          </div>
-          <div class="event-body">
-            <h3 class="event-name">Sunset State Beach</h3>
-            <p class="event-location">Santa Cruz County, CA</p>
-            <p class="event-desc">Coastal camping experience with beach exploration and bonfire activities.</p>
-            <a href="#" class="event-btn">View Details →</a>
-          </div>
-        </div>
-
-        <!-- Event 2: 50-Miler Prep -->
-        <div class="calendar-event">
-          <div class="event-header">
-            <div class="event-date">
-              <span class="event-month">May</span>
-              <span class="event-day">08</span>
-              <span class="event-year">2026</span>
-            </div>
-            <div class="event-type">Backpacking</div>
-          </div>
-          <div class="event-body">
-            <h3 class="event-name">50-Miler Prep — La Honda</h3>
-            <p class="event-location">La Honda Area, CA</p>
-            <p class="event-desc">Intensive training hike preparing scouts for the High Sierra 50-miler challenge.</p>
-            <a href="T222_2026_50Miler.html#prep-hikes" class="event-btn">View Details →</a>
-          </div>
-        </div>
-
-        <!-- Event 3: Angel Island -->
-        <div class="calendar-event">
-          <div class="event-header">
-            <div class="event-date">
-              <span class="event-month">May</span>
-              <span class="event-day">23</span>
-              <span class="event-year">2026</span>
-            </div>
-            <div class="event-type">Overnight</div>
-          </div>
-          <div class="event-body">
-            <h3 class="event-name">Angel Island Camping</h3>
-            <p class="event-location">SF Bay, CA</p>
-            <p class="event-desc">Island camping adventure with historical exploration and water-based activities.</p>
-            <a href="#" class="event-btn">View Details →</a>
-          </div>
-        </div>
-
-        <!-- Event 4: Camp Hi-Sierra -->
-        <div class="calendar-event">
-          <div class="event-header">
-            <div class="event-date">
-              <span class="event-month">July</span>
-              <span class="event-day">12</span>
-              <span class="event-year">2026</span>
-            </div>
-            <div class="event-type">Summer Camp</div>
-          </div>
-          <div class="event-body">
-            <h3 class="event-name">Camp Hi-Sierra</h3>
-            <p class="event-location">Long Barn, CA</p>
-            <p class="event-desc">Week-long summer camp featuring leadership training, skill-building, and high-adventure activities.</p>
-            <a href="#" class="event-btn">View Details →</a>
-          </div>
-        </div>
+      <div class="calendar-grid" id="calendar-grid">
+        <p style="font-family:'DM Mono',monospace;font-size:.75rem;color:var(--bark);opacity:.6;padding:2rem 0;">Loading events…</p>
       </div>
 
       <div class="legend">
@@ -246,5 +176,57 @@ footer{border-top:1px solid var(--border);padding:2rem 0;margin-top:3rem;display
   </footer>
 </div>
 
+  <script>
+    async function loadCalendar() {
+      const grid = document.getElementById('calendar-grid');
+      try {
+        const res = await fetch('data/calendar.json');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const { events } = await res.json();
+
+        const now = new Date();
+        const cutoff = new Date(now);
+        cutoff.setMonth(cutoff.getMonth() + 3);
+
+        const upcoming = events.filter(e => {
+          const d = new Date(e.start);
+          return d >= now && d <= cutoff;
+        });
+
+        if (!upcoming.length) {
+          grid.innerHTML = '<p style="font-family:\'DM Mono\',monospace;font-size:.75rem;color:var(--bark);opacity:.6;padding:2rem 0;">No events in the next 3 months.</p>';
+          return;
+        }
+
+        grid.innerHTML = upcoming.map(e => {
+          const d = new Date(e.start);
+          const month = d.toLocaleDateString('en-US', { month: 'long' });
+          const day   = String(d.getDate()).padStart(2, '0');
+          const year  = d.getFullYear();
+          const loc   = e.location || '';
+          const desc  = e.description ? e.description.split('\n')[0].slice(0, 120) : '';
+          return `
+            <div class="calendar-event">
+              <div class="event-header">
+                <div class="event-date">
+                  <span class="event-month">${month}</span>
+                  <span class="event-day">${day}</span>
+                  <span class="event-year">${year}</span>
+                </div>
+                <div class="event-type">TroopTrack</div>
+              </div>
+              <div class="event-body">
+                <h3 class="event-name">${e.summary}</h3>
+                ${loc ? `<p class="event-location">${loc}</p>` : ''}
+                ${desc ? `<p class="event-desc">${desc}</p>` : ''}
+              </div>
+            </div>`;
+        }).join('');
+      } catch (err) {
+        grid.innerHTML = `<p style="font-family:'DM Mono',monospace;font-size:.75rem;color:var(--bark);opacity:.6;padding:2rem 0;">Could not load calendar: ${err.message}</p>`;
+      }
+    }
+    document.addEventListener('DOMContentLoaded', loadCalendar);
+  </script>
 </body>
 </html>
