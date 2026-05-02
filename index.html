@@ -251,10 +251,11 @@ footer{border-top:1px solid var(--border);padding:2rem 0;margin-top:4rem;display
         const cutoff = new Date(now);
         cutoff.setMonth(cutoff.getMonth() + 3);
 
+        const EXCLUDE = /eagle\s*project|volunteer|service\s*project|community\s*service/i;
         const upcoming = events.filter(e => {
           const d   = new Date(e.start);
           const hrs = (new Date(e.end) - d) / 3_600_000;
-          return d >= now && d <= cutoff && hrs >= 18;
+          return d >= now && d <= cutoff && hrs >= 6 && !EXCLUDE.test(e.summary) && !EXCLUDE.test(e.description);
         });
 
         if (!upcoming.length) {
