@@ -252,8 +252,9 @@ footer{border-top:1px solid var(--border);padding:2rem 0;margin-top:4rem;display
         cutoff.setMonth(cutoff.getMonth() + 3);
 
         const upcoming = events.filter(e => {
-          const d = new Date(e.start);
-          return d >= now && d <= cutoff;
+          const d   = new Date(e.start);
+          const hrs = (new Date(e.end) - d) / 3_600_000;
+          return d >= now && d <= cutoff && hrs >= 18;
         });
 
         if (!upcoming.length) {
