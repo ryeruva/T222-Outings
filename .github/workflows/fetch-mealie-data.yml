@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Fetch data from Mealie
+      - name: Fetch Mealie data
         env:
           MEALIE_TOKEN: ${{ secrets.MEALIE_TOKEN }}
         run: |
@@ -68,10 +68,62 @@ jobs:
           print(f"Meal plans: {len(mealplans.get('items', []))} entries saved")
           PYEOF
 
+      - name: Fetch TroopTrack calendar
+        run: |
+          python3 - <<'PYEOF'
+          import urllib.request, re, json, os
+          from datetime import datetime, timezone
+
+          ICS_URL = "https://t222.trooptrack.com/troops/0C94nGo-CCWEzH_Xf73YRA/calendar"
+
+          with urllib.request.urlopen(ICS_URL) as r:
+              raw = r.read().decode("utf-8")
+
+          def unfold(text):
+              return re.sub(r'\r?\n[ \t]', '', text)
+
+          def parse_dt(val):
+              val = re.sub(r';TZID=[^:]+:', '', val)
+              val = val.replace('Z', '').strip()
+              for fmt in ('%Y%m%dT%H%M%S', '%Y%m%d'):
+                  try:
+                      return datetime.strptime(val, fmt).isoformat()
+                  except ValueError:
+                      continue
+              return val
+
+          def field(block, key):
+              m = re.search(rf'^{key}(?:;[^:]*)?:(.+)$', block, re.MULTILINE)
+              return m.group(1).strip() if m else ''
+
+          raw = unfold(raw)
+          events = []
+          for block in re.findall(r'BEGIN:VEVENT(.*?)END:VEVENT', raw, re.DOTALL):
+              summary  = field(block, 'SUMMARY').replace('\\,', ',').replace('\\n', ' ')
+              location = field(block, 'LOCATION').replace('\\,', ',')
+              desc     = field(block, 'DESCRIPTION').replace('\\,', ',').replace('\\n', '\n').strip()
+              uid      = field(block, 'UID')
+              start    = parse_dt(field(block, 'DTSTART'))
+              end      = parse_dt(field(block, 'DTEND'))
+              events.append({
+                  "uid": uid,
+                  "summary": summary,
+                  "start": start,
+                  "end": end,
+                  "location": location,
+                  "description": desc,
+              })
+
+          events.sort(key=lambda e: e["start"])
+          out = {"fetched": datetime.now(timezone.utc).isoformat(), "events": events}
+          json.dump(out, open("data/calendar.json", "w"), indent=2)
+          print(f"TroopTrack: {len(events)} events saved")
+          PYEOF
+
       - name: Commit updated data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/mt_tallac.json data/grubmaster.json data/mealplans.json
+          git add data/mt_tallac.json data/grubmaster.json data/mealplans.json data/calendar.json
           git diff --staged --quiet || git commit -m "chore: refresh Mealie data [skip ci]"
           git push
