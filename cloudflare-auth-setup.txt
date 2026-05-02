@@ -1,0 +1,86 @@
+CLOUDFLARE ACCESS + GITHUB PAGES — SETUP PLAN
+==============================================
+Goal: Put the T222 Outings site behind email-based auth using
+Cloudflare Access, keeping GitHub Pages as the host.
+
+STATUS: Pending — need a custom domain first.
+
+─────────────────────────────────────────────
+PREREQUISITES
+─────────────────────────────────────────────
+- A custom domain (e.g. t222outings.com or similar)
+  Option A: Buy through Cloudflare (~$10/yr, at-cost, no markup)
+  Option B: Any registrar (Namecheap, Google Domains, etc.)
+
+─────────────────────────────────────────────
+STEP 1 — ADD SITE TO CLOUDFLARE
+─────────────────────────────────────────────
+1. Create free account at cloudflare.com
+2. Add Site → enter your custom domain
+3. Choose Free plan
+4. Cloudflare provides 2 nameservers (e.g. ns1.cloudflare.com)
+5. Log into your domain registrar → update nameservers to Cloudflare's
+6. Wait for propagation (usually <30 min)
+
+─────────────────────────────────────────────
+STEP 2 — POINT CLOUDFLARE AT GITHUB PAGES
+─────────────────────────────────────────────
+In Cloudflare DNS dashboard, add:
+  Type:    CNAME
+  Name:    www   (or @ for apex)
+  Target:  ryeruva.github.io
+  Proxy:   ON (orange cloud) ← this is what enables Access
+
+─────────────────────────────────────────────
+STEP 3 — SET CUSTOM DOMAIN IN GITHUB
+─────────────────────────────────────────────
+1. Repo → Settings → Pages → Custom domain
+2. Enter your domain (e.g. www.t222outings.com)
+3. Check "Enforce HTTPS"
+4. GitHub will auto-provision a TLS cert via Let's Encrypt
+5. A CNAME file will be committed to the repo root automatically
+
+─────────────────────────────────────────────
+STEP 4 — ENABLE CLOUDFLARE ACCESS (Auth)
+─────────────────────────────────────────────
+1. Cloudflare dashboard → Zero Trust (left sidebar)
+2. Access → Applications → Add an Application
+3. Choose "Self-hosted"
+4. Application name: T222 Outings
+5. Application domain: your custom domain
+6. Session duration: 1 week (or your preference)
+
+Add a Policy:
+  Policy name: Troop Members
+  Action: Allow
+  Rule: Emails → list specific addresses (scouts, parents, leaders)
+  OR
+  Rule: Email domain → e.g. @gmail.com (anyone with a Gmail)
+  OR
+  Rule: One-time PIN → any email receives a login code (most open)
+
+─────────────────────────────────────────────
+HOW IT WORKS FOR USERS
+─────────────────────────────────────────────
+- User visits the site → Cloudflare shows a login page
+- They enter their email → receive a one-time PIN (or use Google/GitHub OAuth)
+- Authenticated → redirected to the site
+- Session lasts 1 week (configurable)
+- No shared password to rotate
+
+─────────────────────────────────────────────
+COST
+─────────────────────────────────────────────
+- Cloudflare Free plan: $0
+- Cloudflare Zero Trust (Access): $0 for up to 50 users
+- Domain: ~$10/yr
+- GitHub Pages: $0
+
+─────────────────────────────────────────────
+NOTES
+─────────────────────────────────────────────
+- ryeruva.github.io cannot be proxied through Cloudflare directly
+  because it's a GitHub-owned domain. A custom domain is required.
+- The GitHub Pages source (repo) remains unchanged.
+- All existing GitHub Actions (Mealie + TroopTrack sync) continue
+  to work without any changes.
