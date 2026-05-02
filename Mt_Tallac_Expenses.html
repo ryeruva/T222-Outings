@@ -426,6 +426,88 @@
       opacity: .7
     }
 
+    /* ── Status badges ───────────────────────────────────────────── */
+    .badge {
+      font-family: 'DM Mono', monospace;
+      font-size: .58rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .2rem .6rem;
+      border-radius: 2rem;
+      border: 1px solid currentColor;
+      white-space: nowrap
+    }
+    .badge-paid     { color: var(--fern);  background: #edf4eb }
+    .badge-partial  { color: var(--gold);  background: #fdf8e8 }
+    .badge-pending  { color: var(--warn);  background: #fdf0ee }
+    .badge-settled  { color: var(--fern);  background: #edf4eb }
+    .badge-outstanding { color: var(--warn); background: #fdf0ee }
+
+    /* ── Data tables ─────────────────────────────────────────────── */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .84rem;
+      background: #fff;
+      border: 1px solid #D0C8BC;
+      border-radius: 5px;
+      overflow: hidden
+    }
+    .data-table th {
+      font-family: 'DM Mono', monospace;
+      font-size: .58rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #fff;
+      background: var(--stone);
+      padding: .55rem .75rem;
+      text-align: left
+    }
+    .data-table td {
+      padding: .6rem .75rem;
+      border-bottom: 1px solid rgba(196,168,130,.2);
+      color: var(--ink);
+      vertical-align: middle
+    }
+    .data-table tr:last-child td { border-bottom: none }
+    .data-table tr:nth-child(even) td { background: rgba(245,237,216,.4) }
+    .data-table .mono {
+      font-family: 'DM Mono', monospace;
+      font-size: .78rem
+    }
+    .data-table .amt  { font-family: 'DM Mono', monospace; font-weight: 500 }
+    .data-table .dim  { color: var(--bark); font-size: .78rem }
+    .data-table tfoot td {
+      font-family: 'DM Mono', monospace;
+      font-size: .78rem;
+      font-weight: 500;
+      color: var(--stone);
+      background: var(--cream);
+      border-top: 2px solid var(--sand)
+    }
+
+    /* ── Category group header ───────────────────────────────────── */
+    .cat-header td {
+      font-family: 'DM Mono', monospace;
+      font-size: .62rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--bark);
+      background: rgba(196,168,130,.12) !important;
+      padding: .4rem .75rem;
+      border-bottom: 1px solid rgba(196,168,130,.3) !important
+    }
+
+    /* ── Loading / empty state ───────────────────────────────────── */
+    .sheet-loading {
+      font-family: 'DM Mono', monospace;
+      font-size: .72rem;
+      color: var(--bark);
+      opacity: .6;
+      padding: 1.5rem 0;
+      text-align: center
+    }
+
     footer {
       border-top: 1px solid rgba(100, 80, 50, .2);
       padding: 2rem 0;
@@ -468,61 +550,43 @@
       <h1>Mt. Tallac<br>Expenses</h1>
     </div>
 
-    <!-- ── Budget overview ─────────────────────────────────────── -->
-    <div class="section-head">
-      <span class="section-title">Budget Overview</span>
-    </div>
-
-    <div class="config-bar">
-      <label>Crew size <input type="number" id="crew-size" value="10" min="1" max="100" onchange="refresh()"></label>
-      <label>Days out <input type="number" id="trip-days" value="3" min="1" max="14" onchange="refresh()"></label>
-      <label>Budget $/person/day <input type="number" id="budget-ppd" value="15" min="1" max="100"
-          onchange="refresh()"></label>
-    </div>
-
+    <!-- ── Summary cards ─────────────────────────────────────────── -->
     <div class="summary-grid" id="summary-grid">
-      <!-- rendered by JS -->
+      <p class="sheet-loading" style="grid-column:1/-1">Loading financials…</p>
     </div>
 
-    <!-- ── Receipt tracker ────────────────────────────────────── -->
+    <!-- ── Deposits ───────────────────────────────────────────────── -->
     <hr class="section-divider">
     <div class="section-head">
-      <span class="section-title">Receipts</span>
-      <span class="section-sub">Grubmaster · enter each purchase</span>
+      <span class="section-title">Deposit Collection</span>
+      <span class="section-sub" id="deposit-sub"></span>
     </div>
+    <div id="deposits-container"><p class="sheet-loading">Loading…</p></div>
 
-    <div class="receipt-form">
-      <div class="form-row">
-        <div class="field">
-          <label>Grubmaster</label>
-          <input type="text" id="f-who" placeholder="Scout name">
-        </div>
-        <div class="field">
-          <label>Store / vendor</label>
-          <input type="text" id="f-store" placeholder="e.g. REI, Amazon Fresh">
-        </div>
-        <div class="field">
-          <label>Amount ($)</label>
-          <input type="number" id="f-amount" placeholder="0.00" step="0.01" min="0">
-        </div>
-        <button class="btn btn-primary" onclick="addReceipt()" style="align-self:flex-end">Add</button>
-      </div>
+    <!-- ── Expenses ───────────────────────────────────────────────── -->
+    <hr class="section-divider">
+    <div class="section-head">
+      <span class="section-title">Expense Ledger</span>
+      <span class="section-sub" id="expense-sub"></span>
     </div>
+    <div id="expenses-container"><p class="sheet-loading">Loading…</p></div>
 
-    <div id="receipt-list-container">
-      <!-- rendered by JS -->
+    <!-- ── Reimbursements ─────────────────────────────────────────── -->
+    <hr class="section-divider">
+    <div class="section-head">
+      <span class="section-title">Reimbursements</span>
+      <span class="section-sub" id="reimburse-sub"></span>
     </div>
+    <div id="reimbursements-container"><p class="sheet-loading">Loading…</p></div>
 
-    <!-- ── Mealie shopping reference ──────────────────────────── -->
+    <!-- ── Shopping reference ─────────────────────────────────────── -->
     <hr class="section-divider">
     <div class="section-head">
       <span class="section-title">Shopping Reference <span class="mealie-badge">from Mealie</span></span>
-      <span class="section-sub">Ingredient list pulled from the crew menu</span>
+      <span class="section-sub">Ingredient list from the crew menu</span>
     </div>
     <div class="shop-ref">
-      <div id="shop-ref-container">
-        <p class="shop-ref-loading">Loading from Mealie…</p>
-      </div>
+      <div id="shop-ref-container"><p class="shop-ref-loading">Loading…</p></div>
     </div>
 
     <footer>
@@ -532,159 +596,220 @@
   </div>
 
   <script>
-    // ── Configuration — must match Mt_Tallac_Menu.html ────────────────────────────
-    const MEALIE_BASE = 'https://mealie-deployment-production.up.railway.app';
-    const MEALIE_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb25nX3Rva2VuIjp0cnVlLCJpZCI6IjRiMjEwOTg4LWY3ZDAtNGNmMi1hODQ2LTUwMDk4YTdkYmMzNiIsIm5hbWUiOiIyMjIiLCJpbnRlZ3JhdGlvbl9pZCI6ImdlbmVyaWMiLCJleHAiOjE5MzQ3NTU4NDV9.FIqDDSRaGlEZf9aUfPyxiTbWkANBqFi0hgB2dLvU9Xg';         // read-only API token
-    const TRIP_START = '2026-05-08';
-    const TRIP_END = '2026-05-10';
-    const STORAGE_KEY = 't222-tallac-receipts';
+    const TRIP = 'Mt Tallac';
+    const CSV_DEPOSITS       = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQDkPAmtejWkfPQQb13e9aKciu8xwIz3dVH4LA9R-fjxKC9AFUZI1glTeV0JbS4NUHZ4cILLAYB1YfK/pub?gid=710870592&single=true&output=csv';
+    const CSV_EXPENSES       = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQDkPAmtejWkfPQQb13e9aKciu8xwIz3dVH4LA9R-fjxKC9AFUZI1glTeV0JbS4NUHZ4cILLAYB1YfK/pub?gid=1204011334&single=true&output=csv';
+    const CSV_REIMBURSEMENTS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQDkPAmtejWkfPQQb13e9aKciu8xwIz3dVH4LA9R-fjxKC9AFUZI1glTeV0JbS4NUHZ4cILLAYB1YfK/pub?gid=959940870&single=true&output=csv';
 
-    // ── Receipt storage (localStorage) ───────────────────────────────────────────
-    function loadReceipts() {
-      try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
-      catch { return []; }
+    const fmt  = n => '$' + (parseFloat(n) || 0).toFixed(2);
+    const fmtN = n => parseFloat(n) || 0;
+
+    function parseCSV(text) {
+      const [headerLine, ...lines] = text.trim().split('\n');
+      const headers = headerLine.split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+      return lines
+        .filter(l => l.trim())
+        .map(line => {
+          const vals = [];
+          let cur = '', inQ = false;
+          for (const ch of line) {
+            if (ch === '"') { inQ = !inQ; }
+            else if (ch === ',' && !inQ) { vals.push(cur.trim()); cur = ''; }
+            else cur += ch;
+          }
+          vals.push(cur.trim());
+          return Object.fromEntries(headers.map((h, i) => [h, vals[i] ?? '']));
+        });
     }
 
-    function saveReceipts(list) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
-    }
-
-    function addReceipt() {
-      const who = document.getElementById('f-who').value.trim();
-      const store = document.getElementById('f-store').value.trim();
-      const amount = parseFloat(document.getElementById('f-amount').value);
-      if (!store || isNaN(amount) || amount <= 0) return;
-      const list = loadReceipts();
-      list.push({ id: Date.now(), who, store, amount: +amount.toFixed(2), date: new Date().toISOString() });
-      saveReceipts(list);
-      document.getElementById('f-who').value = '';
-      document.getElementById('f-store').value = '';
-      document.getElementById('f-amount').value = '';
-      refresh();
-    }
-
-    function removeReceipt(id) {
-      saveReceipts(loadReceipts().filter(r => r.id !== id));
-      refresh();
-    }
-
-    // ── Rendering ─────────────────────────────────────────────────────────────────
-    function fmt(n) { return '$' + n.toFixed(2); }
-
-    function renderReceipts(list) {
-      const el = document.getElementById('receipt-list-container');
-      if (!list.length) {
-        el.innerHTML = '<p class="receipt-empty">No receipts yet — add the first purchase above.</p>';
-        return;
-      }
-      const total = list.reduce((s, r) => s + r.amount, 0);
-      const rows = list.map(r => {
-        const d = new Date(r.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-        return `<tr>
-      <td>${r.who || '—'}</td>
-      <td>${r.store}</td>
-      <td class="amount">${fmt(r.amount)}</td>
-      <td style="color:var(--bark);font-size:.75rem">${d}</td>
-      <td><button class="btn btn-danger" onclick="removeReceipt(${r.id})">✕</button></td>
-    </tr>`;
-      }).join('');
-      el.innerHTML = `<table class="receipt-table">
-    <thead><tr><th>Grubmaster</th><th>Store</th><th>Amount</th><th>Date</th><th></th></tr></thead>
-    <tbody>
-      ${rows}
-      <tr class="receipt-total-row"><td colspan="2">Total</td><td class="amount">${fmt(total)}</td><td colspan="2"></td></tr>
-    </tbody>
-  </table>`;
-    }
-
-    function renderSummary(list) {
-      const crewSize = parseInt(document.getElementById('crew-size').value) || 10;
-      const tripDays = parseInt(document.getElementById('trip-days').value) || 3;
-      const budgetPPD = parseFloat(document.getElementById('budget-ppd').value) || 15;
-
-      const totalBudget = crewSize * tripDays * budgetPPD;
-      const totalSpent = list.reduce((s, r) => s + r.amount, 0);
-      const remaining = totalBudget - totalSpent;
-      const perPerson = list.length ? totalSpent / crewSize : 0;
-      const isOver = remaining < 0;
+    // ── Summary ───────────────────────────────────────────────────────────────────
+    function renderSummary(deps, exps, reis) {
+      const collected   = deps.reduce((s, r) => s + fmtN(r['Amount Paid']), 0);
+      const owed        = deps.reduce((s, r) => s + fmtN(r['Amount Owed']), 0);
+      const outstanding = owed - collected;
+      const spent       = exps.reduce((s, r) => s + fmtN(r['Amount']), 0);
+      const reimbursed  = reis.reduce((s, r) => s + fmtN(r['Amount Reimbursed']), 0);
+      const reimOwed    = reis.reduce((s, r) => s + fmtN(r['Amount Owed']), 0);
+      const reimPending = reimOwed - reimbursed;
+      const balance     = collected - spent;
 
       document.getElementById('summary-grid').innerHTML = `
-    <div class="stat-card">
-      <div class="stat-label">Food Budget</div>
-      <div class="stat-value">${fmt(totalBudget)}</div>
-      <div class="stat-unit">${crewSize} crew · ${tripDays} days · ${fmt(budgetPPD)}/person/day</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Receipts In</div>
-      <div class="stat-value">${fmt(totalSpent)}</div>
-      <div class="stat-unit">${list.length} receipt${list.length !== 1 ? 's' : ''}</div>
-    </div>
-    <div class="stat-card ${isOver ? 'over' : 'ok'}">
-      <div class="stat-label">${isOver ? 'Over Budget' : 'Remaining'}</div>
-      <div class="stat-value">${fmt(Math.abs(remaining))}</div>
-      <div class="stat-unit">${isOver ? 'exceeds budget' : 'left to spend'}</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Per Person (actual)</div>
-      <div class="stat-value">${fmt(perPerson)}</div>
-      <div class="stat-unit">across ${crewSize} crew</div>
-    </div>`;
+        <div class="stat-card ${outstanding > 0 ? '' : 'ok'}">
+          <div class="stat-label">Deposits Collected</div>
+          <div class="stat-value">${fmt(collected)}</div>
+          <div class="stat-unit">${fmt(outstanding)} outstanding · ${deps.length} participants</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Total Expenses</div>
+          <div class="stat-value">${fmt(spent)}</div>
+          <div class="stat-unit">${exps.length} line items</div>
+        </div>
+        <div class="stat-card ${balance >= 0 ? 'ok' : 'over'}">
+          <div class="stat-label">${balance >= 0 ? 'Surplus' : 'Shortfall'}</div>
+          <div class="stat-value">${fmt(Math.abs(balance))}</div>
+          <div class="stat-unit">collected minus spent</div>
+        </div>
+        <div class="stat-card ${reimPending > 0 ? '' : 'ok'}">
+          <div class="stat-label">Reimbursements Pending</div>
+          <div class="stat-value">${fmt(reimPending)}</div>
+          <div class="stat-unit">${fmt(reimbursed)} settled of ${fmt(reimOwed)}</div>
+        </div>`;
     }
 
-    function refresh() {
-      const list = loadReceipts();
-      renderSummary(list);
-      renderReceipts(list);
+    // ── Deposits ──────────────────────────────────────────────────────────────────
+    function renderDeposits(rows) {
+      const el = document.getElementById('deposits-container');
+      const sub = document.getElementById('deposit-sub');
+      if (!rows.length) { el.innerHTML = '<p class="sheet-loading">No deposit data.</p>'; return; }
+
+      const paid    = rows.filter(r => fmtN(r['Amount Paid']) >= fmtN(r['Amount Owed'])).length;
+      const partial = rows.filter(r => fmtN(r['Amount Paid']) > 0 && fmtN(r['Amount Paid']) < fmtN(r['Amount Owed'])).length;
+      const pending = rows.filter(r => fmtN(r['Amount Paid']) === 0).length;
+      sub.textContent = `${paid} paid · ${partial} partial · ${pending} pending`;
+
+      const trs = rows.map(r => {
+        const owed = fmtN(r['Amount Owed']), paid = fmtN(r['Amount Paid']);
+        const status = paid >= owed ? ['Paid','paid'] : paid > 0 ? ['Partial','partial'] : ['Pending','pending'];
+        return `<tr>
+          <td>${r['Participant']}</td>
+          <td class="amt">${fmt(owed)}</td>
+          <td class="amt">${fmt(paid)}</td>
+          <td class="amt ${paid >= owed ? '' : 'dim'}">${fmt(owed - paid)}</td>
+          <td class="mono dim">${r['Payment Date'] || '—'}</td>
+          <td class="mono dim">${r['Method'] || '—'}</td>
+          <td><span class="badge badge-${status[1]}">${status[0]}</span></td>
+        </tr>`;
+      }).join('');
+
+      el.innerHTML = `<table class="data-table">
+        <thead><tr><th>Participant</th><th>Owed</th><th>Paid</th><th>Balance</th><th>Date</th><th>Method</th><th>Status</th></tr></thead>
+        <tbody>${trs}</tbody>
+        <tfoot><tr>
+          <td>Total</td>
+          <td class="amt">${fmt(rows.reduce((s,r)=>s+fmtN(r['Amount Owed']),0))}</td>
+          <td class="amt">${fmt(rows.reduce((s,r)=>s+fmtN(r['Amount Paid']),0))}</td>
+          <td class="amt">${fmt(rows.reduce((s,r)=>s+fmtN(r['Amount Owed'])-fmtN(r['Amount Paid']),0))}</td>
+          <td colspan="3"></td>
+        </tr></tfoot>
+      </table>`;
     }
 
-    // ── Mealie shopping reference ─────────────────────────────────────────────────
+    // ── Expenses ──────────────────────────────────────────────────────────────────
+    function renderExpenses(rows) {
+      const el = document.getElementById('expenses-container');
+      const sub = document.getElementById('expense-sub');
+      if (!rows.length) { el.innerHTML = '<p class="sheet-loading">No expense data.</p>'; return; }
+
+      const total = rows.reduce((s, r) => s + fmtN(r['Amount']), 0);
+      sub.textContent = `${rows.length} items · ${fmt(total)} total`;
+
+      const byCategory = {};
+      rows.forEach(r => {
+        const cat = r['Category'] || 'Other';
+        if (!byCategory[cat]) byCategory[cat] = [];
+        byCategory[cat].push(r);
+      });
+
+      let tbody = '';
+      for (const [cat, items] of Object.entries(byCategory)) {
+        const catTotal = items.reduce((s, r) => s + fmtN(r['Amount']), 0);
+        tbody += `<tr class="cat-header"><td colspan="5">${cat} — ${fmt(catTotal)}</td></tr>`;
+        tbody += items.map(r => `<tr>
+          <td class="mono dim">${r['Date'] || '—'}</td>
+          <td>${r['Description']}</td>
+          <td class="dim">${r['Paid By'] || '—'}</td>
+          <td class="amt">${fmt(r['Amount'])}</td>
+          <td class="dim" style="font-size:.72rem">${r['Notes'] || ''}</td>
+        </tr>`).join('');
+      }
+
+      el.innerHTML = `<table class="data-table">
+        <thead><tr><th>Date</th><th>Description</th><th>Paid By</th><th>Amount</th><th>Notes</th></tr></thead>
+        <tbody>${tbody}</tbody>
+        <tfoot><tr><td colspan="3">Total</td><td class="amt">${fmt(total)}</td><td></td></tr></tfoot>
+      </table>`;
+    }
+
+    // ── Reimbursements ────────────────────────────────────────────────────────────
+    function renderReimbursements(rows) {
+      const el = document.getElementById('reimbursements-container');
+      const sub = document.getElementById('reimburse-sub');
+      if (!rows.length) { el.innerHTML = '<p class="sheet-loading">No reimbursement data.</p>'; return; }
+
+      const outstanding = rows.filter(r => fmtN(r['Amount Reimbursed']) < fmtN(r['Amount Owed'])).length;
+      sub.textContent = `${outstanding} outstanding · ${rows.length - outstanding} settled`;
+
+      const trs = rows.map(r => {
+        const owed = fmtN(r['Amount Owed']), paid = fmtN(r['Amount Reimbursed']);
+        const settled = paid >= owed;
+        return `<tr>
+          <td>${r['Person']}</td>
+          <td class="amt">${fmt(owed)}</td>
+          <td class="amt">${fmt(paid)}</td>
+          <td class="amt ${settled ? '' : 'dim'}">${fmt(owed - paid)}</td>
+          <td class="mono dim">${r['Date Settled'] || '—'}</td>
+          <td class="mono dim">${r['Method'] || '—'}</td>
+          <td><span class="badge badge-${settled ? 'settled' : 'outstanding'}">${settled ? 'Settled' : 'Outstanding'}</span></td>
+        </tr>`;
+      }).join('');
+
+      el.innerHTML = `<table class="data-table">
+        <thead><tr><th>Person</th><th>Owed</th><th>Reimbursed</th><th>Remaining</th><th>Date</th><th>Method</th><th>Status</th></tr></thead>
+        <tbody>${trs}</tbody>
+        <tfoot><tr>
+          <td>Total</td>
+          <td class="amt">${fmt(rows.reduce((s,r)=>s+fmtN(r['Amount Owed']),0))}</td>
+          <td class="amt">${fmt(rows.reduce((s,r)=>s+fmtN(r['Amount Reimbursed']),0))}</td>
+          <td class="amt">${fmt(rows.reduce((s,r)=>s+fmtN(r['Amount Owed'])-fmtN(r['Amount Reimbursed']),0))}</td>
+          <td colspan="3"></td>
+        </tr></tfoot>
+      </table>`;
+    }
+
+    // ── Shopping reference (from static Mealie data) ──────────────────────────────
     async function loadShoppingRef() {
       const el = document.getElementById('shop-ref-container');
-      if (!MEALIE_TOKEN) {
-        el.innerHTML = '<p class="shop-ref-loading">Set MEALIE_BASE and MEALIE_TOKEN in this file to pull the ingredient list.</p>';
-        return;
-      }
       try {
-        const hdrs = { 'Authorization': `Bearer ${MEALIE_TOKEN}`, 'Accept': 'application/json' };
-        const mpRes = await fetch(
-          `${MEALIE_BASE}/api/households/mealplans?startDate=${TRIP_START}&endDate=${TRIP_END}&perPage=50`,
-          { headers: hdrs }
-        );
-        if (!mpRes.ok) throw new Error(`Mealie ${mpRes.status}`);
-        const mp = await mpRes.json();
-        const entries = mp.items || [];
-
-        await Promise.all(entries.map(async e => {
-          if (!e.recipe?.slug) return;
-          try {
-            const r = await fetch(`${MEALIE_BASE}/api/recipes/${e.recipe.slug}`, { headers: hdrs });
-            e._recipe = r.ok ? await r.json() : null;
-          } catch { e._recipe = null; }
-        }));
-
-        const allIngredients = new Map();
-        for (const e of entries) {
+        const res = await fetch('data/mt_tallac.json');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const { items = [] } = await res.json();
+        const names = new Map();
+        for (const e of items) {
           for (const i of (e._recipe?.recipeIngredient || [])) {
             const name = (i.food?.name || i.note || '').trim();
-            if (!name) continue;
-            const key = name.toLowerCase();
-            if (!allIngredients.has(key)) allIngredients.set(key, name);
+            if (name) names.set(name.toLowerCase(), name);
           }
         }
-
-        const sorted = [...allIngredients.values()].sort((a, b) => a.localeCompare(b));
-        if (!sorted.length) {
-          el.innerHTML = '<p class="shop-ref-loading">No ingredients found — add recipes to the May 8–10 meal plan in Mealie.</p>';
-          return;
-        }
-        el.innerHTML = `<p style="font-size:.78rem;color:var(--bark);opacity:.75;margin-bottom:.5rem">${sorted.length} unique ingredients from the crew menu</p>
-      <div class="shop-ref-list">${sorted.map(n => `<div class="shop-ref-item">· ${n}</div>`).join('')}</div>`;
+        const sorted = [...names.values()].sort((a, b) => a.localeCompare(b));
+        if (!sorted.length) { el.innerHTML = '<p class="shop-ref-loading">No ingredients found in Mealie meal plan.</p>'; return; }
+        el.innerHTML = `<p style="font-size:.78rem;color:var(--bark);opacity:.75;margin-bottom:.5rem">${sorted.length} unique ingredients</p>
+          <div class="shop-ref-list">${sorted.map(n => `<div class="shop-ref-item">· ${n}</div>`).join('')}</div>`;
       } catch (err) {
-        el.innerHTML = `<p class="shop-ref-loading">Could not reach Mealie: ${err.message}</p>`;
+        el.innerHTML = `<p class="shop-ref-loading">Could not load: ${err.message}</p>`;
       }
     }
 
-    document.addEventListener('DOMContentLoaded', () => { refresh(); loadShoppingRef(); });
+    // ── Bootstrap ─────────────────────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const [deps, exps, reis] = await Promise.all([
+          fetch(CSV_DEPOSITS).then(r => r.text()).then(parseCSV),
+          fetch(CSV_EXPENSES).then(r => r.text()).then(parseCSV),
+          fetch(CSV_REIMBURSEMENTS).then(r => r.text()).then(parseCSV),
+        ]);
+        const d = deps.filter(r => r['Trip'] === TRIP);
+        const e = exps.filter(r => r['Trip'] === TRIP);
+        const ri = reis.filter(r => r['Trip'] === TRIP);
+        renderSummary(d, e, ri);
+        renderDeposits(d);
+        renderExpenses(e);
+        renderReimbursements(ri);
+      } catch (err) {
+        document.getElementById('summary-grid').innerHTML =
+          `<p class="sheet-loading" style="grid-column:1/-1;color:var(--warn)">Could not load sheet data: ${err.message}</p>`;
+      }
+      loadShoppingRef();
+    });
   </script>
 </body>
 
